@@ -81,10 +81,6 @@
   Step 7: Running the Binary
 
   ./fooled.bin
-  # Enter binary number: 10010011
-  # Enter binary number: 1
-  # Enter binary number: 1000110
-  # Enter string: EOF
 
   Step 8: Flag Extraction
 
