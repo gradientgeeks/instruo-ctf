@@ -114,15 +114,7 @@ ls -lh /home/uttam/Downloads/flag.png
 ```
 
 ### Step 9: Flag Extraction Attempts
-```bash
-# Try to extract strings
-strings /home/uttam/Downloads/flag.png | grep -i "eof\|flag"
-
-# Check metadata
-exiftool /home/uttam/Downloads/flag.png | grep -i "comment\|description\|flag"
-
-# Check for steganography
-strings /home/uttam/Downloads/flag.png | tail -20
+Flag was Written On Image . Change Brightness, Contrast Etc 
 ```
 
 The session ended before completing the steganography analysis, but the flag.png image contains the flag either visibly or hidden using steganography tools like zsteg.
