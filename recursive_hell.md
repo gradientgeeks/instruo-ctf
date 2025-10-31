@@ -1,282 +1,356 @@
+# Recursive Hell
 
-  Challenge Information
+## 📋 Challenge Information
 
-  - Challenge Name: recursive_hell.png
-  - Category: Steganography
-  - Initial File: recursive_hell.png (17 MB PNG image)
-  - Flag: EOF{its_a_damn_loop}
-  - Difficulty: High (68 nested ZIPs + 48 Base64 layers)
+- **Challenge Name**: recursive_hell.png
+- **Category**: Steganography
+- **Initial File**: recursive_hell.png (17 MB PNG image)
+- **Flag**: `EOF{its_a_damn_loop}`
+- **Difficulty**: Expert (68 nested ZIPs + 48 Base64 layers)
 
-  ---
-  PHASE 1: Initial Reconnaissance
+## 📑 Table of Contents
 
-  Step 1: File Analysis
+- [Challenge Information](#-challenge-information)
+- [Solution Phases](#-solution-phases)
+  - [Phase 1: Initial Reconnaissance](#phase-1-initial-reconnaissance)
+  - [Phase 2: Embedded Data Detection](#phase-2-embedded-data-detection)
+  - [Phase 3: Recursive ZIP Extraction (68 Levels)](#phase-3-recursive-zip-extraction-68-levels)
+  - [Phase 4: Base64 Decoding (48 Iterations)](#phase-4-base64-decoding-48-iterations)
+- [Technical Summary](#technical-summary)
+- [Tools Used](#tools-used)
+- [Key Insights](#key-insights)
+- [Files Created During Solution](#files-created-during-solution)
+- [Complete Command Sequence](#complete-command-sequence)
 
-  file /home/uttam/Downloads/recursive_hell.png
-  # Output: PNG image data, 680 x 512, 16-bit/color RGB, non-interlaced
-  # Observation: File size 17 MB - suspiciously large for a simple PNG
+---
 
-  Step 2: EXIF Metadata Examination
+## 🔍 Solution Phases
 
-  exiftool /home/uttam/Downloads/recursive_hell.png
-  Key Finding:
-  - Warning: "Text/EXIF chunk(s) found after PNG IDAT"
-  - This indicated additional data appended after the image data
+### Phase 1: Initial Reconnaissance
 
-  Step 3: Initial String Search
+#### Step 1: File Analysis
 
-  strings /home/uttam/Downloads/recursive_hell.png | grep -E "EOF\{.*\}"
-  Result: No readable flag found (flag was deeply embedded)
+```bash
+file /home/uttam/Downloads/recursive_hell.png
+# Output: PNG image data, 680 x 512, 16-bit/color RGB, non-interlaced
+# Observation: File size 17 MB - suspiciously large for a simple PNG
+```
 
-  ---
-  PHASE 2: Embedded Data Detection
+#### Step 2: EXIF Metadata Examination
 
-  Step 4: Binwalk Analysis (Critical Discovery)
+```bash
+exiftool /home/uttam/Downloads/recursive_hell.png
+```
 
-  binwalk /home/uttam/Downloads/recursive_hell.png
+**Key Finding**:
+- Warning: "Text/EXIF chunk(s) found after PNG IDAT"
+- This indicated additional data appended after the image data
 
-  Output:
-  DECIMAL       HEXADECIMAL     DESCRIPTION
-  --------------------------------------------------------------------------------
-  0             0x0             PNG image, 680 x 512, 16-bit/color RGB
-  296306        0x48572         Zip archive data
+#### Step 3: Initial String Search
 
-  Key Discovery: ZIP archive embedded at byte offset 296306 (0x48572)
+```bash
+strings /home/uttam/Downloads/recursive_hell.png | grep -E "EOF\{.*\}"
+```
 
-  Step 5: Extract Embedded ZIP
+**Result**: No readable flag found (flag was deeply embedded)
 
-  dd if=recursive_hell.png of=extracted.zip bs=1 skip=296306
-  Parameters:
-  - if = input file (PNG)
-  - of = output file (ZIP)
-  - bs=1 = block size 1 byte (for precise extraction)
-  - skip=296306 = skip PNG data, start at ZIP offset
+---
 
-  ---
-  PHASE 3: Recursive ZIP Extraction (68 Levels)
+### Phase 2: Embedded Data Detection
 
-  Step 6: First ZIP Extraction
+#### Step 4: Binwalk Analysis (Critical Discovery)
 
-  unzip -q extracted.zip
-  ls -lh
-  Result: Extracted file named temp_68.txt
+```bash
+binwalk /home/uttam/Downloads/recursive_hell.png
+```
 
-  Step 7: Identify Nested ZIP Pattern
+**Output**:
+```
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 680 x 512, 16-bit/color RGB
+296306        0x48572         Zip archive data
+```
 
-  file temp_68.txt
-  # Output: Zip archive data, at least v2.0 to extract
-  Realization: The .txt file is actually another ZIP! This is a recursive nesting challenge.
+**Key Discovery**: ZIP archive embedded at byte offset 296306 (0x48572)
 
-  Step 8: Automated Recursive Extraction Script
+#### Step 5: Extract Embedded ZIP
 
-  Created: extract_recursive.sh
+```bash
+dd if=recursive_hell.png of=extracted.zip bs=1 skip=296306
+```
 
-  #!/bin/bash
-  # Script to extract 68 nested ZIP files
+**Parameters**:
+- `if` = input file (PNG)
+- `of` = output file (ZIP)
+- `bs=1` = block size 1 byte (for precise extraction)
+- `skip=296306` = skip PNG data, start at ZIP offset
 
-  for i in {67..1}; do
-    if [ -f "temp_$i.txt" ]; then
-      file_type=$(file temp_$i.txt)
+---
 
-      if echo "$file_type" | grep -q "Zip archive"; then
-        echo "Extracting temp_$i.txt..."
-        mv temp_$i.txt temp_$i.zip
-        unzip -q temp_$i.zip
-      else
-        echo "Found non-ZIP file: temp_$i.txt"
-        file temp_$i.txt
-        break
-      fi
-    fi
-  done
+### Phase 3: Recursive ZIP Extraction (68 Levels)
 
-  echo "Extraction complete. Final file:"
-  ls -lh temp_0.txt
+#### Step 6: First ZIP Extraction
 
-  Step 9: Execute Extraction
+```bash
+unzip -q extracted.zip
+ls -lh
+```
 
-  chmod +x extract_recursive.sh
-  ./extract_recursive.sh
+**Result**: Extracted file named `temp_68.txt`
 
-  Output:
-  Extracting temp_67.txt...
-  Extracting temp_66.txt...
-  Extracting temp_65.txt...
-  ... (continues through all 68 levels) ...
-  Extracting temp_1.txt...
-  Extraction complete. Final file:
-  -rw-r--r-- 1 uttam uttam 1.2K Oct 30 19:45 temp_0.txt
+#### Step 7: Identify Nested ZIP Pattern
 
-  Result: Successfully extracted 68 nested ZIP archives, reaching temp_0.txt
+```bash
+file temp_68.txt
+# Output: Zip archive data, at least v2.0 to extract
+```
 
-  ---
-  PHASE 4: Base64 Decoding (48 Iterations)
+**Realization**: The .txt file is actually another ZIP! This is a recursive nesting challenge.
 
-  Step 10: Initial Base64 Detection
+#### Step 8: Automated Recursive Extraction Script
 
-  head temp_0.txt
-  Observation: File contains Base64-encoded data (alphanumeric + / + =)
+**Created**: `extract_recursive.sh`
 
-  base64 -d temp_0.txt > decoded_1.txt
-  head decoded_1.txt
-  Result: Still Base64! Multiple layers of encoding detected.
+```bash
+#!/bin/bash
+# Script to extract 68 nested ZIP files
 
-  Step 11: Recursive Base64 Decoder Script
+for i in {67..1}; do
+  if [ -f "temp_$i.txt" ]; then
+    file_type=$(file temp_$i.txt)
 
-  Created: recursive_decode.sh
-
-  #!/bin/bash
-  # Script to decode multiple layers of Base64 encoding
-
-  input="temp_0.txt"
-  counter=0
-
-  while true; do
-    output="decoded_$counter.txt"
-
-    # Attempt Base64 decoding
-    base64 -d "$input" > "$output" 2>/dev/null
-
-    if [ $? -ne 0 ]; then
-      echo "Decoding failed at iteration $counter"
-      break
-    fi
-
-    # Check if output is different from input
-    if cmp -s "$input" "$output"; then
-      echo "No change at iteration $counter"
-      break
-    fi
-
-    # Check if output is still Base64
-    if head -c 100 "$output" | grep -qE '^[A-Za-z0-9+/=]+$'; then
-      echo "Iteration $counter: Still Base64"
-      input="$output"
-      counter=$((counter + 1))
+    if echo "$file_type" | grep -q "Zip archive"; then
+      echo "Extracting temp_$i.txt..."
+      mv temp_$i.txt temp_$i.zip
+      unzip -q temp_$i.zip
     else
-      echo "Iteration $counter: Not Base64 anymore!"
-      file "$output"
-      echo "Searching for flag..."
-      grep -o "EOF{[^}]*}" "$output"
+      echo "Found non-ZIP file: temp_$i.txt"
+      file temp_$i.txt
       break
     fi
-  done
+  fi
+done
 
-  Step 12: Execute Recursive Decoder
+echo "Extraction complete. Final file:"
+ls -lh temp_0.txt
+```
 
-  chmod +x recursive_decode.sh
-  ./recursive_decode.sh
+#### Step 9: Execute Extraction
 
-  Output:
-  Iteration 0: Still Base64
-  Iteration 1: Still Base64
-  Iteration 2: Still Base64
-  Iteration 3: Still Base64
-  ...
-  Iteration 46: Still Base64
-  Iteration 47: Still Base64
-  Iteration 48: Not Base64 anymore!
-  decoded_48.txt: ASCII text, with no line terminators
-  Searching for flag...
-  EOF{its_a_damn_loop}
+```bash
+chmod +x extract_recursive.sh
+./extract_recursive.sh
+```
 
-  Step 13: Flag Verification
+**Output**:
+```
+Extracting temp_67.txt...
+Extracting temp_66.txt...
+Extracting temp_65.txt...
+... (continues through all 68 levels) ...
+Extracting temp_1.txt...
+Extraction complete. Final file:
+-rw-r--r-- 1 uttam uttam 1.2K Oct 30 19:45 temp_0.txt
+```
 
-  cat decoded_48.txt
-  Output: EOF{its_a_damn_loop}
+**Result**: Successfully extracted 68 nested ZIP archives, reaching temp_0.txt
 
-  SUCCESS! Flag captured after 68 ZIP extractions + 48 Base64 decodings = 116 total iterations!
+---
 
-  ---
-  TECHNICAL SUMMARY
+### Phase 4: Base64 Decoding (48 Iterations)
 
-  | Metric                 | Value                | Details                  |
-  |------------------------|----------------------|--------------------------|
-  | Initial File Size      | 17 MB                | Unusually large PNG      |
-  | ZIP Archive Offset     | 296306 bytes         | Found via binwalk        |
-  | Nested ZIP Levels      | 68                   | temp_68.txt → temp_0.txt |
-  | Base64 Encoding Layers | 48                   | Decoded iteratively      |
-  | Total Iterations       | 116                  | 68 + 48                  |
-  | Final Flag Location    | decoded_48.txt       | ASCII text file          |
-  | Flag                   | EOF{its_a_damn_loop} | ✅ Captured               |
+#### Step 10: Initial Base64 Detection
 
-  ---
-  TOOLS USED
+```bash
+head temp_0.txt
+```
 
-  Analysis Tools:
+**Observation**: File contains Base64-encoded data (alphanumeric + / + =)
 
-  - file - File type identification
-  - exiftool - EXIF metadata examination
-  - binwalk - Critical: Detected embedded ZIP
-  - strings - String extraction attempts
+```bash
+base64 -d temp_0.txt > decoded_1.txt
+head decoded_1.txt
+```
 
-  Extraction Tools:
+**Result**: Still Base64! Multiple layers of encoding detected.
 
-  - dd - Binary data extraction at specific offset
-  - unzip - ZIP archive extraction
-  - base64 - Base64 decoding
+#### Step 11: Recursive Base64 Decoder Script
 
-  Automation:
+**Created**: `recursive_decode.sh`
 
-  - bash - Shell scripting for automation
-  - grep - Pattern matching for Base64 and flag
-  - cmp - File comparison
+```bash
+#!/bin/bash
+# Script to decode multiple layers of Base64 encoding
 
-  ---
-  KEY INSIGHTS
+input="temp_0.txt"
+counter=0
 
-  Why This Challenge is Called "recursive_hell":
+while true; do
+  output="decoded_$counter.txt"
 
-  1. 68 nested ZIPs - Each ZIP contains another ZIP (classic recursion)
-  2. 48 Base64 layers - Each decode reveals another encoded layer
-  3. Total 116 iterations - Manual extraction would be impractical
-  4. Flag name confirms it: "its_a_damn_loop" acknowledges the recursive nature
+  # Attempt Base64 decoding
+  base64 -d "$input" > "$output" 2>/dev/null
 
-  Critical Success Factors:
+  if [ $? -ne 0 ]; then
+    echo "Decoding failed at iteration $counter"
+    break
+  fi
 
-  1. Binwalk detection - Without finding the ZIP offset, challenge couldn't be solved
-  2. Automation - Manual extraction of 116 layers would take hours
-  3. Pattern recognition - Recognizing the recursive structure early
-  4. Scripting skills - Creating robust extraction/decoding loops
+  # Check if output is different from input
+  if cmp -s "$input" "$output"; then
+    echo "No change at iteration $counter"
+    break
+  fi
 
-  ---
-  FILES CREATED DURING SOLUTION
+  # Check if output is still Base64
+  if head -c 100 "$output" | grep -qE '^[A-Za-z0-9+/=]+$'; then
+    echo "Iteration $counter: Still Base64"
+    input="$output"
+    counter=$((counter + 1))
+  else
+    echo "Iteration $counter: Not Base64 anymore!"
+    file "$output"
+    echo "Searching for flag..."
+    grep -o "EOF{[^}]*}" "$output"
+    break
+  fi
+done
+```
 
-  /home/uttam/Downloads/
-  ├── recursive_hell.png          # Original challenge file
-  ├── extracted.zip               # Extracted from PNG offset
-  ├── extract_recursive.sh        # ZIP extraction script
-  ├── recursive_decode.sh         # Base64 decoder script
-  ├── temp_68.txt → temp_0.txt   # 68 extracted ZIP files
-  └── decoded_0.txt → decoded_48.txt  # 48 Base64 decode iterations
+#### Step 12: Execute Recursive Decoder
 
-  ---
-  COMPLETE COMMAND SEQUENCE
+```bash
+chmod +x recursive_decode.sh
+./recursive_decode.sh
+```
 
-  # 1. Analyze PNG
-  binwalk recursive_hell.png
+**Output**:
+```
+Iteration 0: Still Base64
+Iteration 1: Still Base64
+Iteration 2: Still Base64
+Iteration 3: Still Base64
+...
+Iteration 46: Still Base64
+Iteration 47: Still Base64
+Iteration 48: Not Base64 anymore!
+decoded_48.txt: ASCII text, with no line terminators
+Searching for flag...
+EOF{its_a_damn_loop}
+```
 
-  # 2. Extract embedded ZIP
-  dd if=recursive_hell.png of=extracted.zip bs=1 skip=296306
+#### Step 13: Flag Verification
 
-  # 3. Initial extraction
-  unzip extracted.zip
+```bash
+cat decoded_48.txt
+# Output: EOF{its_a_damn_loop}
+```
 
-  # 4. Run recursive ZIP extractor
-  bash extract_recursive.sh
+✅ **SUCCESS!** Flag captured after 68 ZIP extractions + 48 Base64 decodings = **116 total iterations!**
 
-  # 5. Run recursive Base64 decoder
-  bash recursive_decode.sh
+---
 
-  # 6. Verify flag
-  cat decoded_48.txt
-  # Output: EOF{its_a_damn_loop}
+## Technical Summary
 
-  ---
-  This was an excellent steganography challenge testing:
-  - Binary analysis skills (binwalk, dd)
-  - Pattern recognition (identifying recursion)
-  - Automation abilities (bash scripting)
-  - Persistence (116 iterations!)
+| Metric                 | Value                | Details                  |
+|------------------------|----------------------|--------------------------|
+| Initial File Size      | 17 MB                | Unusually large PNG      |
+| ZIP Archive Offset     | 296306 bytes         | Found via binwalk        |
+| Nested ZIP Levels      | 68                   | temp_68.txt → temp_0.txt |
+| Base64 Encoding Layers | 48                   | Decoded iteratively      |
+| Total Iterations       | 116                  | 68 + 48                  |
+| Final Flag Location    | decoded_48.txt       | ASCII text file          |
+| Flag                   | EOF{its_a_damn_loop} | ✅ Captured               |
 
-  The flag "its_a_damn_loop" perfectly captures the frustration and eventual triumph of solving this recursive nightmare! 🎯
+---
+
+## Tools Used
+
+### Analysis Tools:
+
+- `file` - File type identification
+- `exiftool` - EXIF metadata examination
+- `binwalk` - **Critical**: Detected embedded ZIP
+- `strings` - String extraction attempts
+
+### Extraction Tools:
+
+- `dd` - Binary data extraction at specific offset
+- `unzip` - ZIP archive extraction
+- `base64` - Base64 decoding
+
+### Automation:
+
+- `bash` - Shell scripting for automation
+- `grep` - Pattern matching for Base64 and flag
+- `cmp` - File comparison
+
+---
+
+## Key Insights
+
+### Why This Challenge is Called "recursive_hell":
+
+1. **68 nested ZIPs** - Each ZIP contains another ZIP (classic recursion)
+2. **48 Base64 layers** - Each decode reveals another encoded layer
+3. **Total 116 iterations** - Manual extraction would be impractical
+4. **Flag name confirms it**: "its_a_damn_loop" acknowledges the recursive nature
+
+### Critical Success Factors:
+
+1. **Binwalk detection** - Without finding the ZIP offset, challenge couldn't be solved
+2. **Automation** - Manual extraction of 116 layers would take hours
+3. **Pattern recognition** - Recognizing the recursive structure early
+4. **Scripting skills** - Creating robust extraction/decoding loops
+
+---
+
+## Files Created During Solution
+
+```
+/home/uttam/Downloads/
+├── recursive_hell.png          # Original challenge file
+├── extracted.zip               # Extracted from PNG offset
+├── extract_recursive.sh        # ZIP extraction script
+├── recursive_decode.sh         # Base64 decoder script
+├── temp_68.txt → temp_0.txt   # 68 extracted ZIP files
+└── decoded_0.txt → decoded_48.txt  # 48 Base64 decode iterations
+```
+
+---
+
+## Complete Command Sequence
+
+```bash
+# 1. Analyze PNG
+binwalk recursive_hell.png
+
+# 2. Extract embedded ZIP
+dd if=recursive_hell.png of=extracted.zip bs=1 skip=296306
+
+# 3. Initial extraction
+unzip extracted.zip
+
+# 4. Run recursive ZIP extractor
+bash extract_recursive.sh
+
+# 5. Run recursive Base64 decoder
+bash recursive_decode.sh
+
+# 6. Verify flag
+cat decoded_48.txt
+# Output: EOF{its_a_damn_loop}
+```
+
+---
+
+## Summary
+
+This was an excellent steganography challenge testing:
+- Binary analysis skills (`binwalk`, `dd`)
+- Pattern recognition (identifying recursion)
+- Automation abilities (bash scripting)
+- Persistence (116 iterations!)
+
+The flag "its_a_damn_loop" perfectly captures the frustration and eventual triumph of solving this recursive nightmare! 🎯
