@@ -83,3 +83,13 @@
  ● Perfect! I found the flag! 🎉
 
    FLAG: EOF{f0und_m3_f!nally}
+   The flag was hidden in the JavaScript bundle for the EOFool CTF event page. It's
+   cleverly placed in a hidden span element with fontSize: "0.1rem" and color:
+   "transparent" to make it invisible to normal users browsing the website. The
+   flag only appears when you inspect the event page source code for the "eofool"
+   event or dig through the JavaScript bundle!
+
+   The CTF name "EOFool" (Everyone's a Fool) and the challenge description about
+   "never forgetting the name of this CTF" were hints that the flag would contain
+   "EOF" as the format.
+
