@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiding in Plain Sight - Instruo CTF 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'IBM Plex Mono', monospace; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        pre { background: #1e1e1e !important; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; }
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
+        pre code { background: transparent; padding: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        table th, table td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+        table th { background: #f9fafb; font-weight: 600; }
+    </style>
+</head>
+<body class="antialiased">
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">Instruo CTF</span>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                    <h1 class="text-4xl font-bold text-white">Hiding in Plain Sight</h1>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-700 text-white">Steganography</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-700 text-white">150 pts</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-600 text-white">Easy</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Challenge Information</h2>
+                <ul class="space-y-2">
+                    <li><strong>Challenge Name:</strong> Hiding in Plain Sight (Nothing Hidden Inside)</li>
+                    <li><strong>Category:</strong> Steganography</li>
+                    <li><strong>Points:</strong> 150 pts</li>
+                    <li><strong>Teams Solved:</strong> 11</li>
+                    <li><strong>Description:</strong> "Got this PDF from a crazy guy, wonder what he wants to tell me?"</li>
+                    <li><strong>Hint:</strong> Not all is what it seems.</li>
+                    <li><strong>Flag:</strong> <code class="text-green-600">EOF{u_r_@_ch!ck3n}</code></li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Solution Methodology</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-4">Step 1: Initial Analysis</h3>
+                <p class="mb-3">First, I tried opening the PDF normally — it showed nothing meaningful or just blank content. This hinted that the real information might not be visible through a regular PDF viewer.</p>
+                <pre><code class="language-bash">ls -l Nothing_hidden_inside.pdf
+# Confirmed file has reasonable size, suggesting hidden text</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 2: Raw Content Inspection</h3>
+                <p class="mb-3">Given the hint and the category (Steg), I decided to <strong>inspect the raw content</strong> of the file instead of viewing it normally.</p>
+                <pre><code class="language-bash">cat Nothing_hidden_inside.pdf</code></pre>
+                <p class="mb-3">Since PDF files can be quite verbose, I filtered for the end section (where PDF metadata or extra text might be hidden):</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 3: Search for Flag Pattern</h3>
+                <pre><code class="language-bash">cat Nothing_hidden_inside.pdf | grep EOF</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 4: Discovery</h3>
+                <p class="mb-3">The command output revealed a series of characters just before the <code>%%EOF</code> marker:</p>
+                <pre><code>{u_r_@_ch!ck3n}%</code></pre>
+                <p class="mb-3">Following the given flag format (<code>EOF{}</code>), the flag becomes:</p>
+                
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+                    <p class="font-semibold text-green-700"><strong>Flag:</strong> <code class="text-green-600">EOF{u_r_@_ch!ck3n}</code></p>
+                    <p class="mt-2 text-sm">Translation: "You are a chicken" 🐔</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Key Insights</h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Why This Challenge Works</h3>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>PDF viewers don't display text hidden after the EOF marker</li>
+                    <li>The <code>%%EOF</code> marker tells PDF readers where the file ends</li>
+                    <li>Data after <code>%%EOF</code> is ignored by PDF readers but visible in raw content</li>
+                    <li>Simple but effective steganography technique</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Tools Used</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><code>cat</code> - Display raw file content</li>
+                    <li><code>grep</code> - Search for EOF pattern</li>
+                    <li><code>strings</code> - Alternative for extracting readable text</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Alternative Methods</h3>
+                <pre><code class="language-bash"># Method 1: Using strings
+strings Nothing_hidden_inside.pdf | grep -i "eof"
+
+# Method 2: Using tail (last lines)
+tail -n 5 Nothing_hidden_inside.pdf
+
+# Method 3: Using hex editor
+hexdump -C Nothing_hidden_inside.pdf | tail -n 20</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Summary Table</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Step</th>
+                            <th>Action</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Opened PDF normally</td>
+                            <td>Nothing visible</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Used <code>cat</code> and <code>grep EOF</code></td>
+                            <td>Revealed hidden text</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Extracted flag in <code>EOF{}</code> format</td>
+                            <td>Success!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
+

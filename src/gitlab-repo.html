@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Noob's First Milestone - Instruo CTF 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'IBM Plex Mono', monospace; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        pre { background: #1e1e1e !important; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; }
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
+        pre code { background: transparent; padding: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        table th, table td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+        table th { background: #f9fafb; font-weight: 600; }
+    </style>
+</head>
+<body class="antialiased">
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">Instruo CTF</span>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <h1 class="text-4xl font-bold text-white">A Noob's First Milestone</h1>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-700 text-white">OSINT</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-700 text-white">150 pts</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-600 text-white">Easy</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Challenge Information</h2>
+                <ul class="space-y-2">
+                    <li><strong>Challenge Name:</strong> A Noob's First Milestone</li>
+                    <li><strong>Category:</strong> OSINT</li>
+                    <li><strong>Points:</strong> 150 pts</li>
+                    <li><strong>Description:</strong> "His first gitlab repo."</li>
+                    <li><strong>Creator:</strong> pandasif</li>
+                    <li><strong>Flag:</strong> <code class="text-green-600">EOF{script_kiddie@eofool.com}</code></li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Solution Methodology</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-4">Step 1: Identify the Target</h3>
+                <p class="mb-3">The challenge description was minimal but clear — we needed to find someone's first GitLab repository. The key was identifying who "he" refers to.</p>
+                <p class="mb-3"><strong>Creator:</strong> <code>pandasif</code></p>
+                <p class="mb-3">This gave us our first lead: <strong>pandasif</strong> was likely the person whose GitLab repo we needed to find.</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 2: Locate the GitLab Profile</h3>
+                <p class="mb-3">We searched for the user <strong>pandasif</strong> on GitLab:</p>
+                <pre><code>https://gitlab.com/pandasif</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 3: Identify the First Repository</h3>
+                <p class="mb-3">Once on their profile, we looked for:</p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>Their oldest/first public repository</li>
+                    <li>Repository creation dates</li>
+                    <li>Commit history in early projects</li>
+                </ul>
+                <p class="mb-3">We found a repository containing a C++ source file (<code>sk.cpp</code>) that simulated a "script kiddie" attack tool. This matched perfectly with the challenge theme "A Noob's first milestone."</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 4: Analyze the Source Code</h3>
+                <p class="mb-3">Looking through <code>sk.cpp</code>, we noticed three data arrays used to generate random email addresses:</p>
+                <pre><code class="language-cpp">const vector<string> FIRST_NAMES = {
+    "olivia","emma","amelia","ava","sophia","charlotte","isabella","mia","luna","harper",
+    "liam","noah","oliver","elijah","lucas","levi","mason","asher","james","ethan",
+    "EOF"  // ← Hidden here!
+};
+
+const vector<string> SURNAMES = {
+    "smith","johnson","williams","brown","jones","garcia","miller","davis","rodriguez",
+    "martinez","hernandez","lopez","gonzales","wilson","anderson","thomas","taylor",
+    "moore","jackson","martin","{script_kiddie"  // ← Hidden here!
+};
+
+const vector<string> EMAIL_PROVIDERS = {
+    "gmail.com","outlook.com","yahoo.com","aol.com","yandex.com","eofool.com}"  // ← Hidden here!
+};</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 5: Reconstruct the Flag</h3>
+                <p class="mb-3">The flag was cleverly hidden across three arrays:</p>
+                <ol class="list-decimal list-inside space-y-2 mb-4">
+                    <li><strong>FIRST_NAMES</strong> array - last element: <code>"EOF"</code></li>
+                    <li><strong>SURNAMES</strong> array - last element: <code>"{script_kiddie"</code></li>
+                    <li><strong>EMAIL_PROVIDERS</strong> array - last element: <code>"eofool.com}"</code></li>
+                </ol>
+
+                <p class="mb-3">When pieced together: <strong><code>EOF{script_kiddie@eofool.com}</code></strong></p>
+
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+                    <p class="font-semibold text-green-700"><strong>Flag:</strong> <code class="text-green-600">EOF{script_kiddie@eofool.com}</code></p>
+                    <p class="text-sm mt-2">The creator hid the flag in plain sight within the data structures used by the script kiddie simulation tool — a fitting easter egg for a challenge about a "noob's first milestone"!</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Key Insights</h2>
+                
+                <h3 class="text-xl font-semibold mb-3">OSINT Techniques Used</h3>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>Profile reconnaissance on GitLab</li>
+                    <li>Repository discovery and analysis</li>
+                    <li>Source code inspection</li>
+                    <li>Pattern recognition in data structures</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Why This Challenge Works</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>Combines OSINT (finding the profile) with code analysis</li>
+                    <li>Flag split across multiple data structures</li>
+                    <li>Thematically appropriate (script kiddie tool containing the flag)</li>
+                    <li>Tests both research and attention to detail</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Tools Used</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>GitLab Search</strong> - To locate the user profile</li>
+                    <li><strong>Browser</strong> - To navigate repositories and view source code</li>
+                    <li><strong>Text Editor</strong> - To analyze the C++ source file</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Summary Table</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Step</th>
+                            <th>Action</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Identified creator from challenge</td>
+                            <td>Found username: <strong>pandasif</strong></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Searched GitLab for user profile</td>
+                            <td>Located profile at gitlab.com/pandasif</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Found first/early repository</td>
+                            <td>Discovered <code>sk.cpp</code> source code</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Analyzed source code arrays</td>
+                            <td>Found flag split across 3 arrays</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Reconstructed flag components</td>
+                            <td>Success!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
+

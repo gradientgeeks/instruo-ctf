@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeless Melodies - Instruo CTF 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'IBM Plex Mono', monospace; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        pre { background: #1e1e1e !important; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; }
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
+        pre code { background: transparent; padding: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        table th, table td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+        table th { background: #f9fafb; font-weight: 600; }
+    </style>
+</head>
+<body class="antialiased">
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">Instruo CTF</span>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                    </svg>
+                    <h1 class="text-4xl font-bold text-white">Timeless Melodies</h1>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-700 text-white">Cryptography</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-700 text-white">150 pts</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-600 text-white">Easy</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Challenge Information</h2>
+                <ul class="space-y-2">
+                    <li><strong>Challenge Name:</strong> Timeless Melodies</li>
+                    <li><strong>Category:</strong> Cryptography</li>
+                    <li><strong>Points:</strong> 150 pts</li>
+                    <li><strong>Teams Solved:</strong> 12</li>
+                    <li><strong>Description:</strong> "Blaise is excited to share his favourite classical composition with everyone. Join him and find the flag."</li>
+                    <li><strong>Note:</strong> Flag text consists only of lowercase letters and does <strong>not</strong> contain EOF{}. If the raw flag is "xyz", submit as EOF{xyz}</li>
+                    <li><strong>Files:</strong> tune.wav, a.txt (ciphertext)</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Solution Methodology</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-4">Step 1: Initial Analysis</h3>
+                <p class="mb-3">The mention of <strong>Blaise</strong> immediately brings to mind <strong>Blaise de Vigenère</strong>, hinting that a <strong>Vigenère cipher</strong> might be involved.</p>
+                <p class="mb-3">Files provided:</p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li><code>tune.wav</code> - Audio file</li>
+                    <li><code>a.txt</code> - Contains ciphertext</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 2: Audio Analysis</h3>
+                <p class="mb-3">The <code>tune.wav</code> was the famous <strong>"Für Elise"</strong> by Ludwig van Beethoven superimposed with Morse code beeps.</p>
+                <p class="mb-3">Steps taken:</p>
+                <ol class="list-decimal list-inside space-y-2 mb-4">
+                    <li>Extracted the Morse code from the classic tune as <code>beep.wav</code></li>
+                    <li>Used an online Morse code decoder to get the phrase</li>
+                </ol>
+                <p class="mb-3"><strong>Decoded Morse Code:</strong></p>
+                <pre><code>"For wisdom names where fools mistrust."</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 3: Analyzing the Hints</h3>
+                <p class="mb-3">Key observations:</p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>What does wisdom do? It <strong>Names</strong></li>
+                    <li>Name of the classical piece: <strong>Für Elise</strong> (a clue!)</li>
+                    <li>The ciphertext: <code>ybviemjrff</code> (from a.txt)</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 4: Vigenère Decryption</h3>
+                <p class="mb-3">Attempted decryption with candidate keys:</p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>wisdom, fools, blaise, classical, music, timeless, melody, piano</li>
+                    <li><strong>FurElise</strong> ← Success!</li>
+                </ul>
+
+                <p class="mb-3"><strong>Decryption Process:</strong></p>
+                <pre><code>Ciphertext: ybviemjrff
+Key:        FurElise
+Method:     Vigenère Cipher Decryption</code></pre>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                    <p class="font-semibold mb-2">Vigenère Cipher Decryption</p>
+                    <p class="text-sm">Using "FurElise" as the key to decode the ciphertext in a.txt successfully revealed the plaintext flag.</p>
+                </div>
+
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+                    <p class="font-semibold text-green-700"><strong>Decrypted Flag:</strong> (Wrap in EOF{})</p>
+                    <p class="text-sm mt-2">The decrypted plaintext was all lowercase and needed to be wrapped in EOF{} format as specified in the challenge description.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Key Insights</h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Clue Analysis</h3>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li><strong>"Blaise"</strong> → Blaise de Vigenère → Vigenère cipher</li>
+                    <li><strong>"Für Elise"</strong> → The classical piece name was the decryption key</li>
+                    <li><strong>"For wisdom names where fools mistrust"</strong> → Wisdom "names" the piece (Für Elise)</li>
+                    <li>Morse code provided an additional layer of obfuscation</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Tools Used</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tool / Command</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>strings tune.wav</code></td>
+                            <td>Check for embedded ASCII or hidden text</td>
+                        </tr>
+                        <tr>
+                            <td><code>exiftool tune.wav</code></td>
+                            <td>Inspect metadata for keywords</td>
+                        </tr>
+                        <tr>
+                            <td><code>sox</code> / <code>audacity</code></td>
+                            <td>Visualize frequency patterns and spectrogram</td>
+                        </tr>
+                        <tr>
+                            <td><code>python3</code></td>
+                            <td>For Vigenère decryption script</td>
+                        </tr>
+                        <tr>
+                            <td>morse-coder.com</td>
+                            <td>Audio Morse code decoder</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Multi-Layer Challenge</h3>
+                <ol class="list-decimal list-inside space-y-2">
+                    <li>Audio steganography (Morse code hidden in music)</li>
+                    <li>Cryptographic hint extraction</li>
+                    <li>Pattern recognition (Für Elise = key)</li>
+                    <li>Vigenère cipher decryption</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
+

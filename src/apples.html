@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apples - Instruo CTF 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'IBM Plex Mono', monospace; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        pre { background: #1e1e1e !important; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; }
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
+        pre code { background: transparent; padding: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        table th, table td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+        table th { background: #f9fafb; font-weight: 600; }
+    </style>
+</head>
+<body class="antialiased">
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">Instruo CTF</span>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <h1 class="text-4xl font-bold text-white">Apples 🍎</h1>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-700 text-white">OSINT</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-700 text-white">300 pts</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-600 text-white">Hard</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Challenge Information</h2>
+                <ul class="space-y-2">
+                    <li><strong>Challenge Name:</strong> Apples</li>
+                    <li><strong>Category:</strong> OSINT</li>
+                    <li><strong>Points:</strong> 300 pts</li>
+                    <li><strong>Description:</strong> "An apple a day keeps a shinigami awake."</li>
+                    <li><strong>File:</strong> light_and_ryuk.py</li>
+                    <li><strong>Hint:</strong> References Death Note (apples and shinigamis)</li>
+                    <li><strong>Flag:</strong> <code class="text-green-600">EOF{apples_apples_everywhere_raaaah}</code></li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Solution Methodology</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-4">Step 1: Running the Python Script</h3>
+                <p class="mb-3">We started by running the given Python file:</p>
+                <pre><code class="language-bash">python3 light_and_ryuk.py</code></pre>
+                <p class="mb-3">This printed a YouTube video link in the terminal.</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 2: Inspecting the YouTube Video</h3>
+                <p class="mb-3">Opening the YouTube link revealed something interesting in the <strong>comments section</strong> — there was a <strong>Google Drive link</strong>, but it appeared to be <strong>encrypted</strong> using a <strong>Caesar cipher</strong>.</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 3: Decrypting the Caesar Cipher</h3>
+                <p class="mb-3">Instead of writing a script, we used an <strong>online Caesar cipher decryption tool</strong>. Trying different shifts revealed the decrypted Google Drive link that pointed to an image file named <strong><code>kira.png</code></strong>.</p>
+
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4">
+                    <p class="font-semibold mb-2">Caesar Cipher Decryption</p>
+                    <p class="text-sm">The encrypted Drive link was shifted using a Caesar cipher. Testing different rotation values (ROT1-25) revealed the correct plaintext URL.</p>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 4: Downloading and Analyzing the Image</h3>
+                <p class="mb-3">We downloaded the file from Google Drive. The image looked normal, but we suspected hidden data, so we used the <code>strings</code> command to search for the flag pattern:</p>
+                <pre><code class="language-bash">strings kira.png | grep EOF</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 5: Discovery</h3>
+                <p class="mb-3">The output revealed:</p>
+                <pre><code>EOF{apples_apples_everywhere_raaaah}</code></pre>
+                <p class="mb-3">This was the hidden flag, embedded at the end of the PNG file.</p>
+
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+                    <p class="font-semibold text-green-700"><strong>Flag:</strong> <code class="text-green-600">EOF{apples_apples_everywhere_raaaah}</code></p>
+                    <p class="text-sm mt-2">The flag references Ryuk's love of apples from Death Note! 🍎</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Key Insights</h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Multi-Stage OSINT Challenge</h3>
+                <ol class="list-decimal list-inside space-y-2 mb-4">
+                    <li>Execute Python script to get YouTube link</li>
+                    <li>Find encrypted Google Drive link in YouTube comments</li>
+                    <li>Decrypt Caesar cipher to reveal Drive URL</li>
+                    <li>Download image from Google Drive</li>
+                    <li>Extract hidden text using <code>strings</code> command</li>
+                </ol>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Death Note Theme</h3>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li><strong>"apple a day keeps a shinigami awake"</strong> - Ryuk loves apples</li>
+                    <li><strong>light_and_ryuk.py</strong> - Light Yagami and Ryuk are characters</li>
+                    <li><strong>kira.png</strong> - Kira is Light's alias</li>
+                    <li><strong>Flag message</strong> - References Ryuk's apple obsession</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Tools Used</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tool / Command</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>python3 light_and_ryuk.py</code></td>
+                            <td>Get YouTube link</td>
+                        </tr>
+                        <tr>
+                            <td>Browser</td>
+                            <td>Check YouTube comments</td>
+                        </tr>
+                        <tr>
+                            <td>Online Caesar tool</td>
+                            <td>Decrypt Drive link</td>
+                        </tr>
+                        <tr>
+                            <td>Google Drive</td>
+                            <td>Download <code>kira.png</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>strings kira.png | grep EOF</code></td>
+                            <td>Found flag</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Summary Table</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Step</th>
+                            <th>Action</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Run the Python script</td>
+                            <td>Got YouTube link</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Checked YouTube comments</td>
+                            <td>Found Caesar-encrypted Drive link</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Decrypted Drive link</td>
+                            <td>Got real Drive URL</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Downloaded image</td>
+                            <td>Got <code>kira.png</code></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Extracted hidden text</td>
+                            <td>Found flag</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content-section bg-gradient-to-r from-red-50 to-orange-50">
+                <h2 class="text-2xl font-bold mb-4">Challenge Theme: Death Note</h2>
+                <p class="mb-3">This challenge cleverly incorporates Death Note references:</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>Ryuk</strong> - The shinigami who loves apples 🍎</li>
+                    <li><strong>Light Yagami (Kira)</strong> - The main protagonist</li>
+                    <li><strong>Apples keeping shinigami awake</strong> - Ryuk's addiction</li>
+                    <li><strong>Multi-layer puzzle</strong> - Like the cat-and-mouse game in the show</li>
+                </ul>
+                <p class="mt-4 italic">A creative OSINT challenge that combines pop culture with technical skills! 📓</p>
+            </div>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
+

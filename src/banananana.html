@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banananana - Instruo CTF 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'IBM Plex Mono', monospace; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        pre { background: #1e1e1e !important; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; }
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
+        pre code { background: transparent; padding: 0; }
+    </style>
+</head>
+<body class="antialiased">
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">Instruo CTF</span>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                    </svg>
+                    <h1 class="text-4xl font-bold text-white">Banananana 🍌</h1>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-700 text-white">Steganography</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-700 text-white">200 pts</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-600 text-white">Medium</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Challenge Information</h2>
+                <ul class="space-y-2">
+                    <li><strong>Challenge Name:</strong> Banananana</li>
+                    <li><strong>Category:</strong> Steganography</li>
+                    <li><strong>Points:</strong> 200 pts</li>
+                    <li><strong>Teams Solved:</strong> 11</li>
+                    <li><strong>Description:</strong> "Obama loves banana. But the peels are scattered everywhere. Can you clean this mess and reveal what's lurking beneath all this?"</li>
+                    <li><strong>File:</strong> banananana.wav</li>
+                    <li><strong>Flag:</strong> <code class="text-green-600">EOF{hidden_among_bananananananana}</code></li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Solution Methodology</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-4">Step 1: Initial Thoughts</h3>
+                <p class="mb-3">The word <em>banana</em> being repeated and the reference to <em>peels</em> suggested that the data might be hidden in the file's metadata or text strings rather than deep frequency analysis.</p>
+                <p class="mb-3">The challenge was in the <strong>Steg</strong> category, so the first step was to extract readable text.</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 2: String Extraction</h3>
+                <p class="mb-3">I decided to use the <code>strings</code> command — a simple yet effective tool to extract printable characters from binary files:</p>
+                <pre><code class="language-bash">strings banananana.wav | grep EOF</code></pre>
+                <p class="mb-3">This command looks for any lines containing the keyword <code>EOF</code>, which is often used in CTF challenges to denote hidden messages or flag formats.</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 3: Discovery</h3>
+                <p class="mb-3">The output revealed the following lines:</p>
+                <pre><code>EOF_BEC
+;EOF{hidden_among_bananananananana}</code></pre>
+                <p class="mb-3">Clearly, the flag was right there, hidden among the extracted text — just as the challenge hinted.</p>
+
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+                    <p class="font-semibold text-green-700"><strong>Flag:</strong> <code class="text-green-600">EOF{hidden_among_bananananananana}</code></p>
+                    <p class="text-sm mt-2">Hidden among the bananas, just like the challenge description suggested! 🍌</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Key Insights</h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Why This Challenge Works</h3>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>Simple steganography using embedded text in audio file</li>
+                    <li>The "peels" metaphor referred to extracting the outer layer (strings)</li>
+                    <li>No complex audio analysis needed - just text extraction</li>
+                    <li>Demonstrates that not all audio steg requires spectrograms</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Tools Used</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><code>strings</code> - Extract printable strings from binary</li>
+                    <li><code>grep</code> - Search for EOF pattern</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Alternative Methods</h3>
+                <pre><code class="language-bash"># Method 1: View all strings
+strings banananana.wav | less
+
+# Method 2: Save strings to file
+strings banananana.wav > output.txt
+cat output.txt | grep "EOF"
+
+# Method 3: Use hexdump
+hexdump -C banananana.wav | grep -i "eof"</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Summary Table</h3>
+                <table class="w-full border-collapse border border-gray-300 mt-4">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 px-4 py-2">Step</th>
+                            <th class="border border-gray-300 px-4 py-2">Action</th>
+                            <th class="border border-gray-300 px-4 py-2">Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">1</td>
+                            <td class="border border-gray-300 px-4 py-2">Analyzed the <code>.wav</code> file</td>
+                            <td class="border border-gray-300 px-4 py-2">Contained hidden data</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">2</td>
+                            <td class="border border-gray-300 px-4 py-2">Used <code>strings</code> with <code>grep EOF</code></td>
+                            <td class="border border-gray-300 px-4 py-2">Found embedded text</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">3</td>
+                            <td class="border border-gray-300 px-4 py-2">Extracted flag in <code>EOF{}</code> format</td>
+                            <td class="border border-gray-300 px-4 py-2">Success!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content-section bg-gradient-to-r from-yellow-50 to-orange-50">
+                <h2 class="text-2xl font-bold mb-4">Challenge Theme</h2>
+                <p class="mb-3">The challenge cleverly uses the banana theme:</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>"Obama loves banana"</strong> - Cultural reference to add humor</li>
+                    <li><strong>"Peels scattered everywhere"</strong> - Metaphor for extracting the outer layer (strings)</li>
+                    <li><strong>"Clean this mess"</strong> - Filter the noise to find the flag</li>
+                    <li><strong>"bananananananana"</strong> - Multiple repetitions hiding the flag</li>
+                </ul>
+                <p class="mt-4 italic">A fun, straightforward steganography challenge that teaches the importance of basic forensic tools! 🍌</p>
+            </div>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
+

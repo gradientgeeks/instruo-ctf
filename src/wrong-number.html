@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wrong Number - Instruo CTF 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'IBM Plex Mono', monospace; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        pre { background: #1e1e1e !important; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; }
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
+        pre code { background: transparent; padding: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        table th, table td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+        table th { background: #f9fafb; font-weight: 600; }
+    </style>
+</head>
+<body class="antialiased">
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">Instruo CTF</span>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    <h1 class="text-4xl font-bold text-white">Wrong Number</h1>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-700 text-white">Crypto</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-700 text-white">Misc</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-700 text-white">150 pts</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-600 text-white">Easy</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Challenge Information</h2>
+                <ul class="space-y-2">
+                    <li><strong>Challenge Name:</strong> Wrong Number</li>
+                    <li><strong>Category:</strong> Crypto, Misc</li>
+                    <li><strong>Points:</strong> 150 pts</li>
+                    <li><strong>Teams Solved:</strong> 15</li>
+                    <li><strong>Description:</strong> "For the past couple of days, don't know who, but a random person calls me. Don't want to talk to him. Can you help me find him?"</li>
+                    <li><strong>Files:</strong> WrongNumber.zip</li>
+                    <li><strong>Flag:</strong> <code class="text-green-600">EOF{4nd4n_w4_d1nw4v4w}</code></li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Solution Methodology</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-4">Step 1: Extract and Analyze Archive</h3>
+                <pre><code class="language-bash">unzip -l WrongNumber.zip</code></pre>
+                <p class="mb-3"><strong>Contents:</strong></p>
+                <pre><code>Archive: WrongNumber.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+      246  2025-10-21 18:39   take_it.zip
+ 35995736  2025-10-20 13:42   wrong_number.wav
+---------                     -------
+ 35995982                     2 files</code></pre>
+
+                <p class="mb-3">Two files found:</p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li><code>wrong_number.wav</code> - An audio file (~36 MB)</li>
+                    <li><code>take_it.zip</code> - A small encrypted zip file (246 bytes)</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 2: Analyzing the Audio File</h3>
+                <p class="mb-3">Upon listening to the song, the number <strong><code>2441139</code></strong> was embedded in the lyrics!</p>
+                <p class="mb-3">This was straightforward - no need for DTMF decoding, spectrograms, or complex audio analysis. The password was simply sung as part of the song lyrics.</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 3: Extracting the Encrypted Zip</h3>
+                <pre><code class="language-bash">unzip take_it.zip</code></pre>
+                <p class="mb-3"><strong>Output:</strong></p>
+                <pre><code>Archive: take_it.zip
+  skipping: finally.txt    unsupported compression method 99</code></pre>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                    <p class="font-semibold mb-2">Understanding Compression Method 99:</p>
+                    <p class="text-sm">Compression method 99 indicates <strong>AES encryption</strong> in ZIP files. The standard <code>unzip</code> command doesn't support this, so we need to use <strong>7-Zip</strong>.</p>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 4: Using 7-Zip with Password</h3>
+                <pre><code class="language-bash">7z x take_it.zip -p2441139</code></pre>
+                <p class="mb-3"><strong>Success!</strong> The zip extracted a file called <code>finally.txt</code>.</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 5: Reading the Flag File</h3>
+                <pre><code class="language-bash">cat finally.txt</code></pre>
+                <p class="mb-3"><strong>Output:</strong></p>
+                <pre><code>YIZ{4hd4h_x4_d1hx4v4x}</code></pre>
+                <p class="mb-3">This doesn't match the expected <code>EOF{...}</code> format, indicating it's encrypted with a <strong>substitution cipher</strong>.</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 6: Decrypting the Cipher</h3>
+                <p class="mb-3">Looking at the pattern:</p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li><code>YIZ{...}</code> should be <code>EOF{...}</code></li>
+                    <li>This suggests: <code>Y → E</code>, <code>I → O</code>, <code>Z → F</code></li>
+                    <li>This is a <strong>Caesar/ROT cipher</strong> with a shift</li>
+                </ul>
+
+                <p class="mb-3"><strong>Calculating the Shift:</strong></p>
+                <pre><code>Y (position 25) → E (position 5) = shift of -20 (or +6)</code></pre>
+
+                <p class="mb-3"><strong>Decoding with ROT-20:</strong></p>
+                <pre><code>Input:  YIZ{4hd4h_x4_d1hx4v4x}
+Output: EOF{4nd4n_w4_d1nw4v4w}</code></pre>
+
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+                    <p class="font-semibold text-green-700"><strong>Flag:</strong> <code class="text-green-600">EOF{4nd4n_w4_d1nw4v4w}</code></p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Key Insights</h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Multi-Stage Challenge</h3>
+                <ol class="list-decimal list-inside space-y-2 mb-4">
+                    <li>Audio analysis to find password</li>
+                    <li>AES-encrypted ZIP extraction</li>
+                    <li>Caesar cipher (ROT-20) decryption</li>
+                </ol>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Tools Used</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><code>unzip</code> - Archive inspection</li>
+                    <li><code>7z</code> - AES-encrypted ZIP extraction</li>
+                    <li><strong>Audio player</strong> - Listen for password in lyrics</li>
+                    <li><strong>CyberChef</strong> / ROT decoder - Caesar cipher decryption</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Summary Table</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Step</th>
+                            <th>Action</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Extracted <code>WrongNumber.zip</code></td>
+                            <td>Found <code>wrong_number.wav</code> and <code>take_it.zip</code></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Listened to audio for password</td>
+                            <td>Got password: <code>2441139</code></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Extracted AES-encrypted zip with 7-Zip</td>
+                            <td>Obtained <code>finally.txt</code></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Decrypted ROT-20 cipher</td>
+                            <td>Retrieved final flag</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
+
