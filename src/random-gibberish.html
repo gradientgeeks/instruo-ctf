@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Gibberish - Instruo CTF 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'IBM Plex Mono', monospace; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        pre { background: #1e1e1e !important; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; }
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
+        pre code { background: transparent; padding: 0; }
+    </style>
+</head>
+<body class="antialiased">
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">Instruo CTF</span>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+                    </svg>
+                    <h1 class="text-4xl font-bold text-white">Random Gibberish</h1>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-amber-700 to-orange-700 text-white">Misc</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-600 text-white">200 pts</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-600 text-white">Medium</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Challenge Information
+                </h2>
+                <ul class="space-y-2">
+                    <li><strong>Name:</strong> Random Gibberish</li>
+                    <li><strong>Category:</strong> Misc, Crypto, Steganography</li>
+                    <li><strong>Points:</strong> 200</li>
+                    <li><strong>Teams Solved:</strong> 8</li>
+                    <li><strong>Flag:</strong> <code class="text-green-600">EOF{@stley}</code></li>
+                </ul>
+                
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-4">
+                    <p class="text-sm font-semibold mb-2">Challenge Description:</p>
+                    <p class="text-sm italic">"Not all languages are simple as Python or fundamental like C, some are a path to the Dark Side."</p>
+                    <p class="text-sm mt-2"><strong>Hint:</strong> Everything is there, just waiting to be found. capture the flag it will be in EOF{} format, focus on @NGFYU.txt</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Solution Overview</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 1: Initial File Analysis</h3>
+                <pre><code class="language-bash"># Check the file size
+cat NGFYU.txt | wc -l
+# Output: 9168 lines
+
+# Check the end of the file
+tail -n 20 NGFYU.txt</code></pre>
+                <p class="mb-3"><strong>Result:</strong> File contains what appears to be "Never Gonna Give You Up" lyrics repeated in various orders.</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 2: Discovery of Hidden Links</h3>
+                <p class="mb-3">Found special lines in the file containing base64 encoded strings:</p>
+                <pre><code class="language-bash"># Line 509 contained a base64 encoded string
+echo "aHR0cHM6Ly9uZXZlci1nb25uYS1may15b3UtdXAudmVyY2VsLmFwcC8=" | base64 -d
+# Output: https://never-gonna-fk-you-up.vercel.app/</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 3: NGFYU Esoteric Language Discovery</h3>
+                <p class="mb-3">The URL led to an esoteric programming language called <strong>"NGFYU"</strong> (Never Gonna F*** You Up):</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>An esoteric language based on "Never Gonna Give You Up" lyrics</li>
+                    <li>Has an online interpreter at the discovered URL</li>
+                    <li>The entire file was written in this language!</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 4: Google Drive Link Discovery</h3>
+                <p class="mb-3">Another line contained a Google Drive link:</p>
+                <pre><code class="language-bash"># Line 1751 had another base64 string
+echo "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2ZpbGUvZC8xVElyZGlpemFsRUdwTlU1YjRGUTlrMlhMUjRKc08xenAvdmlldz91c3A9c2hhcmluZw==" | base64 -d
+# Output: https://drive.google.com/file/d/1TIrdiizalEGpNU5b4FQ9k2XLR4JsO1zp/view?usp=sharing</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 5: Download and Analyze the Flag Image</h3>
+                <pre><code class="language-bash"># Download from Google Drive
+FILE_ID="1TIrdiizalEGpNU5b4FQ9k2XLR4JsO1zp"
+curl -L "https://drive.google.com/uc?export=download&id=${FILE_ID}" -o flag.png
+
+# Check file type
+file flag.png
+# Output: PNG image (82K)</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 6: Image Manipulation - Brightness & Contrast Adjustment</h3>
+                <p class="mb-3"><strong>The Key Discovery:</strong> The flag is hidden in the image but not visible with normal settings. You need to adjust brightness and contrast to reveal it!</p>
+                
+                <p class="mb-3"><strong>Method 1: Using GIMP or Photoshop</strong></p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>Open flag.png in GIMP or Photoshop</li>
+                    <li>Navigate to: Colors → Brightness-Contrast (GIMP) or Image → Adjustments → Brightness/Contrast (Photoshop)</li>
+                    <li>Increase brightness and contrast to maximum or adjust until text becomes visible</li>
+                    <li>The flag <code>EOF{@stley}</code> becomes visible!</li>
+                </ul>
+
+                <p class="mb-3"><strong>Method 2: Using ImageMagick (CLI)</strong></p>
+                <pre><code class="language-bash"># Adjust brightness and contrast
+convert flag.png -brightness-contrast 50x50 flag_adjusted.png
+
+# Or use auto-level for automatic adjustment
+convert flag.png -auto-level flag_adjusted.png
+
+# View the adjusted image
+open flag_adjusted.png</code></pre>
+
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+                    <p class="font-semibold text-green-700"><strong>Flag Revealed:</strong> <code class="text-green-600 text-lg">EOF{@stley}</code></p>
+                    <p class="text-sm mt-2 text-gray-700"><strong>Reference:</strong> "@tsley" refers to Rick Astley (the NGFYU rickroll theme!)</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Key Insights</h2>
+                
+                <h3 class="text-xl font-semibold mb-3">What is NGFYU Language?</h3>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li><strong>NGFYU</strong> (Never Gonna F*** You Up) is a custom esoteric programming language</li>
+                    <li>Uses phrases from "Never Gonna Give You Up" as programming instructions</li>
+                    <li>The interpreter is hosted at: https://never-gonna-fk-you-up.vercel.app/</li>
+                    <li>The entire challenge file is a valid NGFYU program</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Hidden Information</h3>
+                <p class="mb-3">The file contained hidden metadata on specific lines:</p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li><strong>Line 509:</strong> Base64 encoded URL to the NGFYU interpreter</li>
+                    <li><strong>Line 1751:</strong> Base64 encoded Google Drive link to flag.png</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Multi-Stage Challenge</h3>
+                <ol class="list-decimal list-inside space-y-2">
+                    <li>Recognize it's an esoteric language (not steganography initially)</li>
+                    <li>Find the hidden interpreter URL (base64 on line 509)</li>
+                    <li>Find the hidden Google Drive link (base64 on line 1751)</li>
+                    <li>Download the flag image from Google Drive</li>
+                    <li><strong>Adjust brightness/contrast</strong> to reveal the hidden flag</li>
+                    <li>Extract the flag: <code>EOF{@stley}</code></li>
+                </ol>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-6">Why Brightness/Contrast Was Key</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>The flag was written in very light/low-contrast text on the image</li>
+                    <li>Nearly invisible to the naked eye without adjustment</li>
+                    <li>Common steganography technique: hiding in plain sight with low visibility</li>
+                    <li>Could also be revealed by inverting colors or adjusting levels</li>
+                </ul>
+            </div>
+
+            <div class="content-section bg-gradient-to-r from-gray-50 to-blue-50">
+                <h2 class="text-2xl font-bold mb-4">Summary</h2>
+                <p class="mb-3">This challenge cleverly combined:</p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>Custom esoteric programming language (NGFYU - Never Gonna F*** You Up)</li>
+                    <li>Base64 encoding for hidden URLs (lines 509 and 1751)</li>
+                    <li>Rick Astley meme/rickroll as thematic misdirection</li>
+                    <li>Multi-stage puzzle solving (5+ stages)</li>
+                    <li><strong>Image steganography via brightness/contrast manipulation</strong></li>
+                </ul>
+                
+                <div class="bg-white rounded-lg p-4 mt-4 border-2 border-green-500">
+                    <p class="text-lg mb-2"><strong>Final Flag:</strong></p>
+                    <p class="text-2xl font-bold text-green-600 mb-2"><code>EOF{@stley}</code></p>
+                    <p class="text-sm text-gray-600 italic">A tribute to Rick Astley - never gonna give you up! 🎵</p>
+                </div>
+
+                <h3 class="text-lg font-semibold mt-6 mb-2">Tools Required:</h3>
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                    <li><code>base64</code> - Decoding hidden URLs</li>
+                    <li><code>curl</code> / <code>wget</code> - Downloading the flag image</li>
+                    <li><strong>GIMP / Photoshop / ImageMagick</strong> - Brightness/contrast adjustment</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fooled - Instruo CTF 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'IBM Plex Mono', monospace; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        pre { background: #1e1e1e !important; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; }
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
+        pre code { background: transparent; padding: 0; }
+    </style>
+</head>
+<body class="antialiased">
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">Instruo CTF</span>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <h1 class="text-4xl font-bold text-white">Fooled</h1>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-700 text-white">Reverse Engineering</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-700 text-white">600 pts</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-600 text-white">Hard</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Challenge Information
+                </h2>
+                <ul class="space-y-2">
+                    <li><strong>Name:</strong> Fooled</li>
+                    <li><strong>Category:</strong> Steganography, Reverse Engineering</li>
+                    <li><strong>Points:</strong> 600 pts</li>
+                    <li><strong>Teams Solved:</strong> 1</li>
+                    <li><strong>File:</strong> fooled.bin (31KB ELF 64-bit executable)</li>
+                    <li><strong>Hint:</strong> "The ASCII value of 'E' is author's favourite number" (E = 69)</li>
+                    <li><strong>Flag:</strong> <code class="text-green-600">EOF{not_a_foolish_person_ig}</code></li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Solution Methodology</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 1: Binary Analysis</h3>
+                <pre><code class="language-bash">file fooled.bin
+# ELF 64-bit LSB pie executable, x86-64</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 2: Reverse Engineering with Ghidra</h3>
+                <p class="mb-3">The binary contains several key functions:</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><code>printFlag()</code> - Contains 32 encrypted bytes</li>
+                    <li><code>check()</code> - Validates three input parameters</li>
+                    <li><code>binToDec()</code> - Converts binary strings to decimal</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 3: Understanding the Validation Logic</h3>
+                <p class="mb-3">From disassembly, the <code>check</code> function requires:</p>
+                <pre><code>binToDec(arg1) + binToDec(arg2) + binToDec(arg3) = 218 (0xda)
+binToDec(arg3) = 70 (ASCII 'F')
+Therefore: binToDec(arg1) + binToDec(arg2) = 148</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 4: Encryption Algorithm Discovery</h3>
+                <p class="mb-3">The flag is encrypted using:</p>
+                <pre><code class="language-c">sum_value = ((string[0] >> 1) << 1) + 1 + ((string[1] >> 1) << 1)
+
+// First 16 bytes: encrypted_byte = original_byte + sum_value
+// Last 16 bytes: encrypted_byte = original_byte - string[0]</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 5: Finding Correct Inputs</h3>
+                <p class="mb-3">Using the hint (ASCII 'E' = 69):</p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>String input: <strong>"EOF"</strong> (E=69, O=79, F=70)</li>
+                    <li>Verification: 69 + 79 + 70 = 218 ✓</li>
+                </ul>
+                <p class="mb-3">Binary inputs needed:</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><code>10010011</code> → 147</li>
+                    <li><code>1</code> → 1</li>
+                    <li><code>1000110</code> → 70</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 6: Decryption Script</h3>
+                <pre><code class="language-python">encrypted_bytes = [
+    0x1d, 0x28, 0xf4, 0xeb, 0x13, 0xed, 0x01, 0x21,
+    0x15, 0x28, 0xf4, 0x31, 0x1d, 0xfc, 0xf8, 0xf8,
+    0x82, 0x67, 0x5a, 0x98, 0x7b, 0x79, 0x6b, 0x9b,
+    0x83, 0x53, 0x56, 0x87, 0x82, 0x78, 0x84, 0x5e
+]
+
+def sum_func(s):
+    c0, c1 = ord(s[0]), ord(s[1])
+    return ((c0 // 2) * 2) + 1 + ((c1 // 2) * 2)
+
+s = "EOF"
+sum_val = sum_func(s)  # = 147
+
+# Decrypt first 16 bytes
+first_half = ''.join(chr((encrypted_bytes[i] - sum_val) & 0xff) for i in range(16))
+
+# Decrypt last 16 bytes  
+second_half = ''.join(chr((encrypted_bytes[i] + ord(s[0])) & 0xff) for i in range(16, 32))
+
+# Decode base64 parts
+flag = base64_decode(first_half) + base64_decode(second_half)</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 8: Flag Extraction</h3>
+                <p class="mb-3">The decrypted bytes yield base64-encoded strings:</p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>First part: "not_a_fool"</li>
+                    <li>Second part: "ish_person_ig"</li>
+                </ul>
+                <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                    <p class="font-semibold text-green-700"><strong>Final Flag:</strong> <code class="text-green-600">EOF{not_a_foolish_person_ig}</code></p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Key Techniques Used</h2>
+                <ol class="list-decimal list-inside space-y-2">
+                    <li><strong>Reverse Engineering</strong> - Ghidra CLI for binary disassembly</li>
+                    <li><strong>Binary Number Conversion</strong> - Understanding <code>binToDec()</code> function</li>
+                    <li><strong>Cryptanalysis</strong> - Custom encryption algorithm with bitwise operations</li>
+                    <li><strong>Hint Interpretation</strong> - ASCII value of 'E' (69) was the decryption key</li>
+                    <li><strong>Base64 Decoding</strong> - Flag parts were base64-encoded</li>
+                </ol>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Tools</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>Ghidra</strong> (CLI mode)</li>
+                    <li><strong>Python</strong> (for decryption scripting)</li>
+                    <li><code>file</code>, <code>strings</code>, <code>hexdump</code>, <code>objdump</code></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

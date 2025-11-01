@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Like Finding a Needle in the Hay Stack - Instruo CTF 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        pre {
+            background: #1e1e1e !important;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        
+        code {
+            background: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+        }
+        
+        pre code {
+            background: transparent;
+            padding: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        table th, table td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        table th {
+            background: #f9fafb;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">Instruo CTF</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="../index.html" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <div class="glass rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <h1 class="text-4xl font-bold text-white">Like Finding a Needle in the Hay Stack</h1>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-700 text-white">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                        Steganography
+                    </span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-700 text-white">
+                        500 pts
+                    </span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-600 text-white">
+                        Hard
+                    </span>
+                </div>
+            </div>
+
+            <!-- Challenge Information -->
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Challenge Information
+                </h2>
+                <ul class="space-y-2">
+                    <li><strong>Challenge Name:</strong> Like Finding a Needle in the Hay Stack</li>
+                    <li><strong>Category:</strong> Steganography</li>
+                    <li><strong>Points:</strong> 500 pts</li>
+                    <li><strong>Teams Solved:</strong> 0</li>
+                    <li><strong>Description:</strong> "The flag is here, I believe, I can hear see it already. Note: A lot of fake flags here, you have been warned."</li>
+                    <li><strong>Initial File:</strong> absolutely_normal.zip</li>
+                    <li><strong>Real Flag:</strong> <code class="text-green-600">EOF{b3war3_!t$_c0m!ng_f0r_u}</code> ✅</li>
+                </ul>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    Table of Contents
+                </h2>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><a href="#phase1" class="text-blue-600 hover:underline">Phase 1: Initial Extraction</a></li>
+                    <li><a href="#phase2" class="text-blue-600 hover:underline">Phase 2: Hunt for Obvious Flags (Fake Flags)</a></li>
+                    <li><a href="#phase3" class="text-blue-600 hover:underline">Phase 3: Deep Steganography Analysis</a></li>
+                    <li><a href="#phase4" class="text-blue-600 hover:underline">Phase 4: Extract Hidden MP3</a></li>
+                    <li><a href="#phase5" class="text-blue-600 hover:underline">Phase 5: MP3 Metadata Analysis (The Real Flag)</a></li>
+                    <li><a href="#phase6" class="text-blue-600 hover:underline">Phase 6: Decode the Real Flag</a></li>
+                    <li><a href="#summary" class="text-blue-600 hover:underline">Summary of All Flags</a></li>
+                </ul>
+            </div>
+
+            <!-- Phase 1 -->
+            <div id="phase1" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Phase 1: Initial Extraction
+                </h2>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 1: Extract ZIP Archive</h3>
+                <pre><code class="language-bash">unzip absolutely_normal.zip
+# Extracted: absolutely_normal.png (2.5 MB)</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 2: File Analysis</h3>
+                <pre><code class="language-bash">file absolutely_normal.png
+# Output: PNG image data, 1920 x 1080, 8-bit/color RGB, non-interlaced
+# Observation: 2.5 MB is reasonable but could contain hidden data</code></pre>
+            </div>
+
+            <!-- Phase 2 -->
+            <div id="phase2" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                    Phase 2: Hunt for Obvious Flags (Fake Flags)
+                </h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Step 3: String Search for EOF{} Patterns</h3>
+                <pre><code class="language-bash">strings absolutely_normal.png | grep "EOF{"</code></pre>
+
+                <p class="mb-3"><strong>Flags Found (Both FAKE)</strong>:</p>
+                <ol class="list-decimal list-inside space-y-2 mb-4">
+                    <li><code>EOF{this_is_not_a_real_flag}</code> ❌ - Obviously fake by its own admission</li>
+                    <li><code>EOF{F00l'$_3rr@nd}</code> ❌ - Name literally means "Fool's Errand", also appears in MP3 Comment field (double decoy)</li>
+                </ol>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                    <p class="text-sm"><strong>Note:</strong> These are the "lot of fake flags" mentioned in the challenge description!</p>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div id="phase3" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                    Phase 3: Deep Steganography Analysis
+                </h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Step 4: PNG Structure Examination</h3>
+                <pre><code class="language-bash">hexdump -C absolutely_normal.png | grep -A 5 "IEND"</code></pre>
+                <p class="mb-3"><strong>Critical Discovery:</strong> Data exists after the PNG IEND marker (end of PNG). This is a classic steganography technique: appending files to PNG</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 5: Binwalk Analysis</h3>
+                <pre><code class="language-bash">binwalk absolutely_normal.png</code></pre>
+                
+                <p class="mb-3"><strong>Output:</strong></p>
+                <pre><code>DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 1920 x 1080
+82096         0x140B0         Zip archive data</code></pre>
+
+                <p class="mb-3"><strong>Discoveries:</strong></p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>ZIP archive at offset 82096</li>
+                    <li>PDF file (a.pdf) embedded</li>
+                    <li>MP3 audio file embedded ← <strong>This is the key!</strong></li>
+                </ul>
+            </div>
+
+            <!-- Phase 4 -->
+            <div id="phase4" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                    </svg>
+                    Phase 4: Extract Hidden MP3
+                </h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Step 6: Extract MP3 from PNG</h3>
+                <pre><code class="language-bash">dd if=absolutely_normal.png of=extracted.mp3 bs=1 skip=82096
+# Alternative using binwalk:
+binwalk -e absolutely_normal.png</code></pre>
+
+                <p class="mb-3"><strong>Result:</strong></p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>extracted.mp3 successfully extracted</li>
+                    <li>Format: MPEG-1 Layer 3</li>
+                    <li>Bitrate: 192 kbps</li>
+                    <li>Sample Rate: 44.1 kHz</li>
+                    <li>Duration: ~1 minute 44 seconds</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 7: Listen to Audio (Hint Analysis)</h3>
+                <p class="mb-3"><strong>Observation:</strong> No obvious audio steganography (no morse code, hidden speech, etc.)</p>
+                <p>The challenge hint: "I can hear see it already" → <strong>Metadata, not audio content!</strong></p>
+            </div>
+
+            <!-- Phase 5 -->
+            <div id="phase5" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                    </svg>
+                    Phase 5: MP3 Metadata Analysis (The Real Flag)
+                </h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Step 8: Extract All MP3 Metadata</h3>
+                <pre><code class="language-bash">exiftool extracted.mp3</code></pre>
+
+                <p class="mb-3"><strong>Complete Output:</strong></p>
+                <pre><code>Title                           : Absolutely Normal
+Year                            : 2024
+Needle                          : FP.G{.c3x.bs.3_!.u$._d0.n!o.h_.g0.s_v.}
+Comment                         : (Audio_Info) EOF{F00l'$_3rr@nd}</code></pre>
+
+                <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
+                    <p class="font-semibold mb-2">CRITICAL FINDINGS:</p>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li><strong>"Comment" field:</strong> <code>EOF{F00l'$_3rr@nd}</code> ❌ - Another fake flag (fool's errand)</li>
+                        <li><strong>"Needle" field:</strong> <code>FP.G{.c3x.bs.3_!.u$._d0.n!o.h_.g0.s_v.}</code> ⚠️ - This is suspiciously named "Needle" (challenge is "Finding a Needle in the Haystack"). Obfuscated format suggests encoding.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Phase 6 -->
+            <div id="phase6" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    Phase 6: Decode the Real Flag
+                </h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Step 9: Analyze the Obfuscation</h3>
+                <p class="mb-3"><strong>Obfuscated String:</strong></p>
+                <pre><code>FP.G{.c3x.bs.3_!.u$._d0.n!o.h_.g0.s_v.}</code></pre>
+
+                <p class="mb-3"><strong>Pattern Analysis:</strong></p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>Dots (.) appear to be noise/padding</li>
+                    <li>Letters seem shifted (FP.G → EOF?)</li>
+                    <li>Numbers and special characters remain unchanged</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 10: Caesar Cipher Detection</h3>
+                <pre><code>F → E (shift back by 1)
+P → O (shift back by 1)
+G → F (shift back by 1)</code></pre>
+
+                <p class="mb-3"><strong>Method:</strong> Caesar cipher with +1 shift (each letter moved forward by 1)</p>
+                <p class="mb-3"><strong>Solution:</strong> Reverse the shift by -1</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 11: Python Decryption Script</h3>
+                <pre><code class="language-python">#!/usr/bin/env python3
+
+def caesar_decrypt(text, shift=1):
+    """Decrypt Caesar cipher by shifting back"""
+    result = []
+    for char in text:
+        if char.isalpha():
+            base = ord('A') if char.isupper() else ord('a')
+            decrypted = chr((ord(char) - base - shift) % 26 + base)
+            result.append(decrypted)
+        else:
+            result.append(char)
+    return ''.join(result)
+
+obfuscated = "FP.G{.c3x.bs.3_!.u$._d0.n!o.h_.g0.s_v.}"
+decrypted = caesar_decrypt(obfuscated, shift=1)
+cleaned = decrypted.replace('.', '').replace(' ', '')
+print(f"Final: {cleaned}")</code></pre>
+
+                <p class="mb-3"><strong>Final Output:</strong></p>
+                <pre><code class="text-green-600">EOF{b3war3_!t$_c0m!ng_f0r_u}</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 12: Verify Flag Format</h3>
+                <p class="mb-3"><strong>Leetspeak Translation:</strong> "Beware, it's coming for you"</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>b3war3 = beware</li>
+                    <li>!t$ = it's</li>
+                    <li>c0m!ng = coming</li>
+                    <li>f0r_u = for you</li>
+                </ul>
+
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+                    <p class="font-semibold text-green-700">✅ CONFIRMED: This is the REAL flag!</p>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div id="summary" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Summary of All Flags
+                </h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Flag</th>
+                            <th>Location</th>
+                            <th>Type</th>
+                            <th>Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>EOF{this_is_not_a_real_flag}</code></td>
+                            <td>PNG strings</td>
+                            <td>❌ Fake</td>
+                            <td>Plaintext decoy</td>
+                        </tr>
+                        <tr>
+                            <td><code>EOF{F00l'$_3rr@nd}</code></td>
+                            <td>PNG strings + MP3 Comment</td>
+                            <td>❌ Fake</td>
+                            <td>Double decoy</td>
+                        </tr>
+                        <tr>
+                            <td><code>EOF{b3war3_!t$_c0m!ng_f0r_u}</code></td>
+                            <td>MP3 "Needle" metadata</td>
+                            <td>✅ REAL</td>
+                            <td>Caesar cipher +1 shift</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Key Insights -->
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                    Key Insights & Techniques
+                </h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Why This Challenge Was Clever:</h3>
+                
+                <p class="font-semibold mt-4 mb-2">1. Multiple Layers of Deception:</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>2 obvious fake flags in PNG strings</li>
+                    <li>1 fake flag in MP3 Comment field</li>
+                    <li>Real flag hidden in obscure "Needle" metadata field</li>
+                </ul>
+
+                <p class="font-semibold mt-4 mb-2">2. Hint Analysis:</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>"hear see it already" → Audio + Visual = Metadata</li>
+                    <li>"Needle in the Haystack" → Look for "Needle" field</li>
+                    <li>"A lot of fake flags" → Don't trust obvious findings</li>
+                </ul>
+
+                <p class="font-semibold mt-4 mb-2">3. Encoding Methods:</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>Steganography: Appending MP3 to PNG</li>
+                    <li>Obfuscation: Dots as noise</li>
+                    <li>Cryptography: Caesar cipher (+1)</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Tools Used:</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><code>unzip</code> - Extract ZIP</li>
+                    <li><code>binwalk</code> - Detect embedded files</li>
+                    <li><code>dd</code> - Extract binary data</li>
+                    <li><code>exiftool</code> - <strong>Critical:</strong> Read MP3 metadata</li>
+                    <li><code>strings</code> - Find text in binaries</li>
+                    <li><code>Python</code> - Caesar cipher decryption</li>
+                </ul>
+            </div>
+
+            <!-- Final Answer -->
+            <div class="content-section bg-gradient-to-r from-green-50 to-blue-50">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Final Answer
+                </h2>
+                
+                <p class="text-lg mb-4"><strong>The REAL flag is:</strong> <code class="text-green-600 text-xl">EOF{b3war3_!t$_c0m!ng_f0r_u}</code></p>
+                
+                <ul class="space-y-2">
+                    <li><strong>Found in:</strong> MP3 "Needle" metadata field (exiftool)</li>
+                    <li><strong>Encoding:</strong> Caesar cipher (+1 shift) with dot noise</li>
+                    <li><strong>Translation:</strong> "Beware, it's coming for you"</li>
+                </ul>
+
+                <p class="mt-4 italic">This challenge perfectly demonstrates why reading the hints carefully and not trusting obvious findings is crucial in CTF steganography challenges!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

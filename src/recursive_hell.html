@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursive Hell - Instruo CTF 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'IBM Plex Mono', monospace; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        pre { background: #1e1e1e !important; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; }
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
+        pre code { background: transparent; padding: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        table th, table td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+        table th { background: #f9fafb; font-weight: 600; }
+    </style>
+</head>
+<body class="antialiased">
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">Instruo CTF</span>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    <h1 class="text-4xl font-bold text-white">Recursive Hell</h1>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-700 text-white">Steganography</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-800 text-white">Expert</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Challenge Information</h2>
+                <ul class="space-y-2">
+                    <li><strong>Challenge Name:</strong> recursive_hell.png</li>
+                    <li><strong>Category:</strong> Steganography</li>
+                    <li><strong>Initial File:</strong> recursive_hell.png (17 MB PNG image)</li>
+                    <li><strong>Flag:</strong> <code class="text-green-600">EOF{its_a_damn_loop}</code></li>
+                    <li><strong>Difficulty:</strong> Expert (68 nested ZIPs + 48 Base64 layers)</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Technical Summary</h2>
+                <table>
+                    <tr><th>Metric</th><th>Value</th><th>Details</th></tr>
+                    <tr><td>Initial File Size</td><td>17 MB</td><td>Unusually large PNG</td></tr>
+                    <tr><td>ZIP Archive Offset</td><td>296306 bytes</td><td>Found via binwalk</td></tr>
+                    <tr><td>Nested ZIP Levels</td><td>68</td><td>temp_68.txt → temp_0.txt</td></tr>
+                    <tr><td>Base64 Encoding Layers</td><td>48</td><td>Decoded iteratively</td></tr>
+                    <tr><td>Total Iterations</td><td>116</td><td>68 + 48</td></tr>
+                    <tr><td>Final Flag</td><td>EOF{its_a_damn_loop}</td><td>✅ Captured</td></tr>
+                </table>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Solution Overview</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-4">Phase 1: Initial Analysis</h3>
+                <pre><code class="language-bash">file recursive_hell.png
+# Output: PNG image data, 680 x 512, 16-bit/color RGB
+# Observation: File size 17 MB - suspiciously large
+
+exiftool recursive_hell.png
+# Warning: "Text/EXIF chunk(s) found after PNG IDAT"</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 2: Binwalk Detection</h3>
+                <pre><code class="language-bash">binwalk recursive_hell.png
+# Output: ZIP archive data at offset 296306
+
+dd if=recursive_hell.png of=extracted.zip bs=1 skip=296306</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 3: Recursive ZIP Extraction (68 Levels)</h3>
+                <pre><code class="language-bash">#!/bin/bash
+# Script to extract 68 nested ZIP files
+for i in {67..1}; do
+  if [ -f "temp_$i.txt" ]; then
+    mv temp_$i.txt temp_$i.zip
+    unzip -q temp_$i.zip
+  fi
+done</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 4: Base64 Decoding (48 Iterations)</h3>
+                <pre><code class="language-bash">#!/bin/bash
+input="temp_0.txt"
+counter=0
+
+while true; do
+  output="decoded_$counter.txt"
+  base64 -d "$input" > "$output" 2>/dev/null
+  
+  if grep -qE '^[A-Za-z0-9+/=]+$' "$output"; then
+    input="$output"
+    counter=$((counter + 1))
+  else
+    grep -o "EOF{[^}]*}" "$output"
+    break
+  fi
+done</code></pre>
+
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+                    <p class="font-semibold text-green-700">✅ SUCCESS! Flag captured after 116 total iterations!</p>
+                    <p class="mt-2"><strong>Flag:</strong> <code class="text-green-600 text-lg">EOF{its_a_damn_loop}</code></p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Key Insights</h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Why "recursive_hell"?</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>68 nested ZIPs</strong> - Each ZIP contains another ZIP (classic recursion)</li>
+                    <li><strong>48 Base64 layers</strong> - Each decode reveals another encoded layer</li>
+                    <li><strong>Total 116 iterations</strong> - Manual extraction would be impractical</li>
+                    <li><strong>Flag name confirms it:</strong> "its_a_damn_loop" acknowledges the recursive nature</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Tools Used</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><code>binwalk</code> - Critical for detecting embedded ZIP</li>
+                    <li><code>dd</code> - Binary data extraction at specific offset</li>
+                    <li><code>unzip</code> - ZIP archive extraction</li>
+                    <li><code>base64</code> - Base64 decoding</li>
+                    <li><code>bash</code> - Shell scripting for automation</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
