@@ -1,6 +1,6 @@
-# Instruo CTF Challenge 2025
+# Instruo CTF Challenge 2025 Solution
 
-Welcome to the **IIEST Instruo CTF Challenge 2025** repository! This repository contains detailed writeups and solutions for various Capture The Flag (CTF) challenges from the Instruo 2025 competition organized by IIEST (Indian Institute of Engineering Science and Technology).
+Welcome to our **IIEST Instruo CTF Challenge 2025 Solution** repository! This repository contains detailed writeups and solutions for various Capture The Flag (CTF) challenges from the Instruo 2025 competition organized by IIEST (Indian Institute of Engineering Science and Technology).
 
 ## 📋 About
 
@@ -104,19 +104,6 @@ sudo apt install binwalk exiftool file binutils unzip curl python3
 - **Python 3**: For scripting and automation
 - **steghide/zsteg**: Additional steganography tools
 
-## 🚀 Getting Started
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/gradientgeeks/instruo-ctf.git
-   cd instruo-ctf
-   ```
-
-2. **Choose a challenge**: Browse the markdown files to select a challenge.
-
-3. **Read the writeup**: Each file contains a complete step-by-step solution.
-
-4. **Practice**: Try to solve similar challenges using the techniques learned.
 
 ## 📖 Learning Resources
 
@@ -136,31 +123,11 @@ sudo apt install binwalk exiftool file binutils unzip curl python3
 - Base64 encoding/decoding
 - Custom encryption algorithms
 
-## 🤝 Contributing
 
-Contributions are welcome! If you have:
-- Additional solution methods
-- Optimizations to existing solutions
-- New challenge writeups
-- Tool recommendations
-
-Please feel free to open a pull request or issue.
 
 ## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🏆 Credits
-
-**Event**: Instruo CTF 2025  
-**Organizer**: IIEST (Indian Institute of Engineering Science and Technology)  
-**Repository Maintainer**: Gradient Geeks
-
-## 📧 Contact
-
-For questions or discussions about these challenges:
-- Open an issue in this repository
-- Reach out to the Gradient Geeks team
 
 ---
 
