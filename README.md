@@ -10,6 +10,8 @@ This repository serves as a comprehensive resource for understanding and solving
 
 The challenges cover various categories of cybersecurity:
 - **Steganography**: Hidden data extraction and analysis
+- **Reverse Engineering**: Binary analysis and code decompilation
+- **Web**: Web application security and reconnaissance
 - **Cryptography**: Encryption and decoding techniques
 - **Miscellaneous**: Mixed-discipline challenges combining multiple skills
 
@@ -21,6 +23,8 @@ The challenges cover various categories of cybersecurity:
 | [Fooled](#fooled) | Steganography, Reverse Engineering | Hard | 600 | 1 | ✅ Solved |
 | [Random Gibberish](#random-gibberish) | Misc, Crypto, Steganography | Medium | 200 | 8 | ✅ Solved |
 | [Recursive Hell](#recursive-hell) | Steganography | Expert | - | - | ✅ Solved |
+| [Amen](#amen) | Reverse Engineering | Medium | - | - | ✅ Solved |
+| [Cannon Ball](#cannon-ball) | Web, Steganography | Medium | - | - | ✅ Solved |
 
 ## 🔍 Challenge Summaries
 
@@ -81,6 +85,36 @@ An extreme recursion challenge featuring:
 - 116 total iterations to reach the flag
 
 **Key Tools**: `binwalk`, `dd`, `unzip`, `base64`, Bash scripting
+
+---
+
+### Amen
+**File**: [amen.md](./amen.md)  
+**Flag**: `EOF{wh3r3_ar3_my_po1n+5}`
+
+A reverse engineering challenge featuring:
+- 32-bit ELF binary analysis
+- Pseudo-random number generator (PRNG) based flag generation
+- Data array extraction from binary
+- Understanding C's `rand()` and `srand()` functions
+- Misleading hints as misdirection
+
+**Key Tools**: Ghidra, Python, GCC, `strings`, `hexdump`
+
+---
+
+### Cannon Ball
+**File**: [cannon-ball.md](./cannon-ball.md)  
+**Flag**: `EOF{F0und_!t}`
+
+A multi-stage web and steganography challenge featuring:
+- Web reconnaissance and hidden resource discovery
+- Base64-encoded data URIs
+- Multiple website layers
+- LSB steganography in PNG images
+- Game interface as misdirection
+
+**Key Tools**: `curl`, `zsteg`, `tesseract`, `base64`, `exiftool`
 
 ## 🛠️ Tools & Prerequisites
 
