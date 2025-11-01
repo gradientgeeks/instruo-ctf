@@ -6,7 +6,7 @@
 - **Category**: Misc, Crypto, Steganography
 - **Points**: 200
 - **Teams Solved**: 8
-- **Flag Format**: EOF{}
+- **Flag Format**: 
 
 ## Challenge Description
 
