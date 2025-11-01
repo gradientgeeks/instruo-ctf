@@ -87,7 +87,6 @@
 
 strings "a (3)" | grep -i "flag\|eof"
 # Found hint: "strings lol.. zsteg the file bro"</code></pre>
-
                 <p class="mb-3"><strong>Observation:</strong> The binary is a 32-bit executable with a misleading hint about zsteg (which is for images).</p>
 
                 <h3 class="text-xl font-semibold mb-3 mt-6">Step 2: Disassembly and Function Discovery</h3>
@@ -99,67 +98,144 @@ strings "a (3)" | grep -i "flag\|eof"
                     <li><code>dump()</code> - Helper function (returns 0)</li>
                 </ul>
 
+                <p class="mb-3"><strong>Critical Flow:</strong></p>
+                <pre><code class="language-c">if (input > 10) {
+    seed = recursive_fibonacci_mask(input);
+    print_flag(seed);
+}</code></pre>
+
                 <h3 class="text-xl font-semibold mb-3 mt-6">Step 3: Understanding the Algorithm</h3>
-                <p class="mb-3">The flag is generated using:</p>
+                <p class="mb-3"><strong>The print_flag() Function:</strong></p>
+                <pre><code class="language-c">void print_flag(unsigned int seed) {
+    unsigned int data[24] = { /* hardcoded array */ };
+    srand(seed);
+    
+    for (int i = 0; i < 24; i++) {
+        int r = rand();
+        char c = (r - data[i]) & 0xFF;
+        printf("%c", c);
+    }
+}</code></pre>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                    <p class="font-semibold mb-2">Key Discovery:</p>
+                    <p class="text-sm">The seed value is hardcoded as <code>0xff10ca3b</code> in the binary's logic!</p>
+                </div>
+
+                <p class="mb-3"><strong>The Data Array Location:</strong></p>
+                <p class="mb-3">The data array is stored at virtual address <strong>0x0804a0a0</strong> in the binary:</p>
                 <ul class="list-disc list-inside space-y-2 mb-4">
-                    <li>Pseudo-random number generator (PRNG) based flag generation</li>
-                    <li>Uses C's <code>rand()</code> and <code>srand()</code> functions</li>
-                    <li>Data array extraction from binary</li>
-                    <li>The input number is used to seed the random number generator</li>
+                    <li>Contains 24 unsigned 32-bit integers (96 bytes total)</li>
+                    <li>Values are stored in little-endian format</li>
                 </ul>
 
                 <h3 class="text-xl font-semibold mb-3 mt-6">Step 4: Extracting the Data Array</h3>
-                <p class="mb-3">The binary contains a data array that is XORed with PRNG-generated values. Key steps:</p>
-                <ol class="list-decimal list-inside space-y-2 mb-4">
-                    <li>Locate the encrypted data array in the binary using Ghidra</li>
-                    <li>Extract the encryption algorithm from the <code>print_flag()</code> function</li>
-                    <li>Replicate the PRNG seed and generation pattern</li>
-                    <li>Decrypt the flag by reversing the XOR operation</li>
-                </ol>
+                <pre><code class="language-python">import struct
+
+with open("a (3)", "rb") as f:
+    content = f.read()
+
+# Search for the data pattern
+target = bytes.fromhex("80033018e240063f")
+offset = content.find(target)
+print(f"Found at offset: 0x{offset:x}")
+
+# Extract 96 bytes (24 integers)
+data = content[offset:offset+96]
+values = [struct.unpack('<I', data[i:i+4])[0] for i in range(0, 96, 4)]
+
+# Display as C array
+print("unsigned int data[] = {")
+for i in range(0, len(values), 4):
+    line = ", ".join(f"0x{v:08x}" for v in values[i:i+4])
+    print(f"    {line},")
+print("};")
+</code></pre>
+
+                <p class="mb-3"><strong>Extracted Data Array:</strong></p>
+                <pre><code class="language-c">unsigned int data[] = {
+    0x18300380, 0x3f0640e2, 0x47c88dae, 0x4770cb65,
+    0x70868fee, 0x5887f01e, 0x07b695b3, 0x7e5fe4f7,
+    0x2b2bcab8, 0x7b1c25a5, 0x6cc1d210, 0x1029aafa,
+    0x2b07785e, 0x45c80fee, 0x2d96388c, 0x0135865e,
+    0x4eb1e13d, 0x5182204f, 0x21f78a34, 0x212d3340,
+    0x40e64e84, 0x1c66c1b7, 0x6712a7ce, 0x4252dd56
+};</code></pre>
 
                 <h3 class="text-xl font-semibold mb-3 mt-6">Step 5: Replicating the Flag Generation</h3>
-                <pre><code class="language-python">import random
+                <pre><code class="language-c">#include <stdio.h>
+#include <stdlib.h>
 
-# Seed value (obtained from analysis)
-seed = 1337  # Example seed
+unsigned int data[] = {
+    0x18300380, 0x3f0640e2, 0x47c88dae, 0x4770cb65,
+    0x70868fee, 0x5887f01e, 0x07b695b3, 0x7e5fe4f7,
+    0x2b2bcab8, 0x7b1c25a5, 0x6cc1d210, 0x1029aafa,
+    0x2b07785e, 0x45c80fee, 0x2d96388c, 0x0135865e,
+    0x4eb1e13d, 0x5182204f, 0x21f78a34, 0x212d3340,
+    0x40e64e84, 0x1c66c1b7, 0x6712a7ce, 0x4252dd56
+};
 
-# Initialize PRNG
-random.seed(seed)
+int main() {
+    unsigned int seed = 0xff10ca3b;
+    printf("Flag: ");
+    srand(seed);
+    
+    for (int i = 0; i < 24; i++) {
+        int r = rand();
+        unsigned int val = data[i];
+        char c = (r - val) & 0xFF;
+        printf("%c", c);
+    }
+    printf("\n");
+    
+    return 0;
+}</code></pre>
 
-# Encrypted data array from binary
-encrypted = [0x45, 0x4f, 0x46, ...]  # Example values
-
-# Decrypt using PRNG
-flag = ''
-for byte in encrypted:
-    rand_val = random.randint(0, 255)
-    decrypted_byte = byte ^ rand_val
-    flag += chr(decrypted_byte)
-
-print(flag)</code></pre>
+                <p class="mb-3"><strong>Compilation and Execution:</strong></p>
+                <pre><code class="language-bash">gcc -o solve_final solve_final.c
+./solve_final</code></pre>
 
                 <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
-                    <p class="font-semibold text-green-700"><strong>Flag:</strong> <code class="text-green-600">EOF{wh3r3_ar3_my_po1n+5}</code></p>
-                    <p class="mt-2 text-sm">Translation: "Where are my points?"</p>
+                    <p class="font-semibold text-green-700"><strong>Output:</strong> <code class="text-green-600">EOF{wh3r3_ar3_my_po1n+5}</code></p>
+                    <p class="text-sm mt-2"><strong>Translation:</strong> "where are my points?" - A humorous complaint about CTF scoring! 😄</p>
                 </div>
             </div>
 
             <div class="content-section">
                 <h2 class="text-2xl font-bold mb-4">Key Insights</h2>
-                <ul class="list-disc list-inside space-y-2">
-                    <li>The hint about zsteg was intentionally misleading</li>
-                    <li>Understanding PRNG behavior in C was crucial</li>
-                    <li>The challenge combined reverse engineering with cryptanalysis</li>
-                    <li>Binary analysis skills were essential for extracting the data array</li>
-                </ul>
+                
+                <h3 class="text-xl font-semibold mb-3">Why This Challenge Was Clever</h3>
+                <ol class="list-decimal list-inside space-y-2 mb-4">
+                    <li><strong>Misleading Hint:</strong> The "zsteg" hint was a red herring (zsteg is for image steganography)</li>
+                    <li><strong>Hardcoded Seed:</strong> The seed <code>0xff10ca3b</code> was embedded in the binary's logic</li>
+                    <li><strong>PRNG-Based Encryption:</strong> Used C's <code>rand()</code> function for pseudo-random character generation</li>
+                    <li><strong>Data Extraction:</strong> Required understanding of binary structure and memory layout</li>
+                </ol>
 
                 <h3 class="text-xl font-semibold mb-3 mt-6">Tools Used</h3>
                 <ul class="list-disc list-inside space-y-2">
                     <li><strong>Ghidra</strong> - For disassembly and decompilation</li>
-                    <li><strong>Python</strong> - For replicating the flag generation</li>
-                    <li><code>strings</code>, <code>hexdump</code> - For initial analysis</li>
-                    <li><code>file</code> - For binary identification</li>
+                    <li><strong>Python</strong> - For data extraction scripts</li>
+                    <li><strong>GCC</strong> - To compile the solution</li>
+                    <li><code>strings</code>, <code>hexdump</code>, <code>file</code> - For initial analysis</li>
                 </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Complete Solution Summary</h2>
+                <pre><code class="language-bash"># 1. Disassemble binary to understand logic
+# Use Ghidra/IDA to find print_flag() and data array location
+
+# 2. Extract data array
+python3 extract_data.py  # Extract 24 integers from offset
+
+# 3. Compile and run solver
+gcc -o solve solve.c
+./solve
+
+# Output: EOF{wh3r3_ar3_my_po1n+5}</code></pre>
+
+                <p class="mt-4">This challenge demonstrates the importance of reverse engineering skills, understanding C standard library functions (<code>rand()</code>, <code>srand()</code>), and the ability to extract and analyze binary data structures!</p>
             </div>
         </div>
     </div>

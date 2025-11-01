@@ -1,4 +1,4 @@
-# 🏆 Instruo CTF 2025 - Complete Solutions & Writeups
+# Instruo CTF 2025 - Solved Solutions & Writeups
 
 <div align="center">
 

@@ -53,30 +53,25 @@
             <div class="glass rounded-2xl p-8 mb-8">
                 <div class="flex items-center space-x-3 mb-4">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                     </svg>
                     <h1 class="text-4xl font-bold text-white">Fooled</h1>
                 </div>
                 <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-600 text-white">Steganography</span>
                     <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-700 text-white">Reverse Engineering</span>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-700 text-white">600 pts</span>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-600 text-white">Hard</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-600 text-white">Hard (600 pts)</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-500 text-white">⭐ 1 Team Solved</span>
                 </div>
             </div>
 
             <div class="content-section">
-                <h2 class="text-2xl font-bold mb-4 flex items-center">
-                    <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Challenge Information
-                </h2>
+                <h2 class="text-2xl font-bold mb-4">Challenge Information</h2>
                 <ul class="space-y-2">
                     <li><strong>Name:</strong> Fooled</li>
                     <li><strong>Category:</strong> Steganography, Reverse Engineering</li>
-                    <li><strong>Points:</strong> 600 pts</li>
-                    <li><strong>Teams Solved:</strong> 1</li>
+                    <li><strong>Points:</strong> 600 pts (Hard)</li>
+                    <li><strong>Teams Solved:</strong> 1 (Extremely Difficult!)</li>
                     <li><strong>File:</strong> fooled.bin (31KB ELF 64-bit executable)</li>
                     <li><strong>Hint:</strong> "The ASCII value of 'E' is author's favourite number" (E = 69)</li>
                     <li><strong>Flag:</strong> <code class="text-green-600">EOF{not_a_foolish_person_ig}</code></li>
@@ -86,13 +81,13 @@
             <div class="content-section">
                 <h2 class="text-2xl font-bold mb-4">Solution Methodology</h2>
                 
-                <h3 class="text-xl font-semibold mb-3 mt-6">Step 1: Binary Analysis</h3>
+                <h3 class="text-xl font-semibold mb-3 mt-4">Step 1: Binary Analysis</h3>
                 <pre><code class="language-bash">file fooled.bin
 # ELF 64-bit LSB pie executable, x86-64</code></pre>
 
                 <h3 class="text-xl font-semibold mb-3 mt-6">Step 2: Reverse Engineering with Ghidra</h3>
                 <p class="mb-3">The binary contains several key functions:</p>
-                <ul class="list-disc list-inside space-y-2">
+                <ul class="list-disc list-inside space-y-2 mb-4">
                     <li><code>printFlag()</code> - Contains 32 encrypted bytes</li>
                     <li><code>check()</code> - Validates three input parameters</li>
                     <li><code>binToDec()</code> - Converts binary strings to decimal</li>
@@ -100,7 +95,7 @@
 
                 <h3 class="text-xl font-semibold mb-3 mt-6">Step 3: Understanding the Validation Logic</h3>
                 <p class="mb-3">From disassembly, the <code>check</code> function requires:</p>
-                <pre><code>binToDec(arg1) + binToDec(arg2) + binToDec(arg3) = 218 (0xda)
+                <pre><code class="language-text">binToDec(arg1) + binToDec(arg2) + binToDec(arg3) = 218 (0xda)
 binToDec(arg3) = 70 (ASCII 'F')
 Therefore: binToDec(arg1) + binToDec(arg2) = 148</code></pre>
 
@@ -112,13 +107,16 @@ Therefore: binToDec(arg1) + binToDec(arg2) = 148</code></pre>
 // Last 16 bytes: encrypted_byte = original_byte - string[0]</code></pre>
 
                 <h3 class="text-xl font-semibold mb-3 mt-6">Step 5: Finding Correct Inputs</h3>
-                <p class="mb-3">Using the hint (ASCII 'E' = 69):</p>
-                <ul class="list-disc list-inside space-y-2 mb-4">
-                    <li>String input: <strong>"EOF"</strong> (E=69, O=79, F=70)</li>
-                    <li>Verification: 69 + 79 + 70 = 218 ✓</li>
-                </ul>
-                <p class="mb-3">Binary inputs needed:</p>
-                <ul class="list-disc list-inside space-y-2">
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                    <p class="font-semibold mb-2">💡 Using the hint (ASCII 'E' = 69):</p>
+                    <ul class="list-disc list-inside text-sm space-y-1">
+                        <li>String input: <strong>"EOF"</strong> (E=69, O=79, F=70)</li>
+                        <li>Verification: 69 + 79 + 70 = 218 ✓</li>
+                    </ul>
+                </div>
+
+                <p class="mb-3"><strong>Binary inputs needed:</strong></p>
+                <ul class="list-disc list-inside space-y-1 mb-4">
                     <li><code>10010011</code> → 147</li>
                     <li><code>1</code> → 1</li>
                     <li><code>1000110</code> → 70</li>
@@ -148,14 +146,19 @@ second_half = ''.join(chr((encrypted_bytes[i] + ord(s[0])) & 0xff) for i in rang
 # Decode base64 parts
 flag = base64_decode(first_half) + base64_decode(second_half)</code></pre>
 
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 7: Running the Binary</h3>
+                <pre><code class="language-bash">./fooled.bin</code></pre>
+
                 <h3 class="text-xl font-semibold mb-3 mt-6">Step 8: Flag Extraction</h3>
                 <p class="mb-3">The decrypted bytes yield base64-encoded strings:</p>
                 <ul class="list-disc list-inside space-y-2 mb-4">
-                    <li>First part: "not_a_fool"</li>
-                    <li>Second part: "ish_person_ig"</li>
+                    <li><strong>First part:</strong> "not_a_fool"</li>
+                    <li><strong>Second part:</strong> "ish_person_ig"</li>
                 </ul>
+
                 <div class="bg-green-50 border-l-4 border-green-400 p-4">
-                    <p class="font-semibold text-green-700"><strong>Final Flag:</strong> <code class="text-green-600">EOF{not_a_foolish_person_ig}</code></p>
+                    <p class="font-semibold text-green-700 text-lg">🎉 Final Flag: <code class="text-green-600">EOF{not_a_foolish_person_ig}</code></p>
+                    <p class="text-sm mt-2">If you solved this, you're definitely not a foolish person! 🏆</p>
                 </div>
             </div>
 
@@ -168,13 +171,31 @@ flag = base64_decode(first_half) + base64_decode(second_half)</code></pre>
                     <li><strong>Hint Interpretation</strong> - ASCII value of 'E' (69) was the decryption key</li>
                     <li><strong>Base64 Decoding</strong> - Flag parts were base64-encoded</li>
                 </ol>
+            </div>
 
-                <h3 class="text-xl font-semibold mb-3 mt-6">Tools</h3>
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Tools Used</h2>
                 <ul class="list-disc list-inside space-y-2">
-                    <li><strong>Ghidra</strong> (CLI mode)</li>
-                    <li><strong>Python</strong> (for decryption scripting)</li>
-                    <li><code>file</code>, <code>strings</code>, <code>hexdump</code>, <code>objdump</code></li>
+                    <li><strong>Ghidra</strong> - CLI mode for reverse engineering</li>
+                    <li><strong>Python</strong> - For decryption scripting</li>
+                    <li><code>file</code>, <code>strings</code>, <code>hexdump</code>, <code>objdump</code> - Binary analysis</li>
                 </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Why This Challenge Was Brutal</h2>
+                <div class="bg-red-50 border-l-4 border-red-400 p-4">
+                    <p class="mb-3">This 600-point challenge combined:</p>
+                    <ol class="list-decimal list-inside space-y-2 text-sm">
+                        <li><strong>Binary reverse engineering</strong> with Ghidra</li>
+                        <li><strong>Custom encryption</strong> with bitwise operations</li>
+                        <li><strong>Mathematical constraints</strong> (binary conversions, sum validation)</li>
+                        <li><strong>Subtle hint interpretation</strong> (ASCII 'E' = 69)</li>
+                        <li><strong>Multi-stage decryption</strong> (different algorithms for two halves)</li>
+                        <li><strong>Base64 encoding</strong> as final obfuscation layer</li>
+                    </ol>
+                    <p class="mt-3 font-semibold">Only 1 team solved this during the competition!</p>
+                </div>
             </div>
         </div>
     </div>

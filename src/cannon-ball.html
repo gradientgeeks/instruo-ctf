@@ -29,9 +29,6 @@
         pre { background: #1e1e1e !important; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; }
         code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
         pre code { background: transparent; padding: 0; }
-        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-        table th, table td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
-        table th { background: #f9fafb; font-weight: 600; }
     </style>
 </head>
 <body class="antialiased">
@@ -61,8 +58,8 @@
                     <h1 class="text-4xl font-bold text-white">Cannon Ball</h1>
                 </div>
                 <div class="flex flex-wrap gap-3">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-800 text-white">Web</span>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-700 text-white">Steganography</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-600 text-white">Web</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-600 text-white">Steganography</span>
                     <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-600 text-white">Medium</span>
                 </div>
             </div>
@@ -72,7 +69,7 @@
                 <ul class="space-y-2">
                     <li><strong>Challenge Name:</strong> Cannon Ball</li>
                     <li><strong>Category:</strong> Web, Steganography</li>
-                    <li><strong>URL:</strong> <a href="https://cannon-ball-three.vercel.app/" class="text-blue-600 hover:underline" target="_blank">https://cannon-ball-three.vercel.app/</a></li>
+                    <li><strong>URL:</strong> <a href="https://cannon-ball-three.vercel.app/" class="text-blue-600 hover:underline">https://cannon-ball-three.vercel.app/</a></li>
                     <li><strong>Description:</strong> "There is something wrong with this website, but I can't put a finger on it."</li>
                     <li><strong>Flag:</strong> <code class="text-green-600">EOF{F0und_!t}</code></li>
                 </ul>
@@ -82,71 +79,190 @@
                 <h2 class="text-2xl font-bold mb-4">Solution Methodology</h2>
                 
                 <h3 class="text-xl font-semibold mb-3 mt-4">Phase 1: Initial Website Reconnaissance</h3>
+                <p class="mb-3"><strong>Step 1: Fetch and Analyze HTML</strong></p>
                 <pre><code class="language-bash">curl -s https://cannon-ball-three.vercel.app/ > page.html
 cat page.html | grep -i "EOF\|flag\|hidden"</code></pre>
 
-                <p class="mb-3"><strong>Key Findings:</strong></p>
-                <ul class="list-disc list-inside space-y-2 mb-4">
-                    <li>HTML comment: <code>&lt;!--RCnYi2VTt9yXtWnnmzOPL--&gt;</code></li>
-                    <li>Low opacity image element with id <code>f00lish-stuff</code> (opacity: 0.01)</li>
-                    <li>Another image with id <code>secret-stuff</code> (opacity: 0.2)</li>
-                    <li>Multiple elements with very low opacity values designed to be nearly invisible</li>
-                </ul>
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4 mt-4">
+                    <p class="font-semibold mb-2">Key Findings:</p>
+                    <ul class="list-disc list-inside text-sm space-y-1">
+                        <li>HTML comment: <code>&lt;!--RCnYi2VTt9yXtWnnmzOPL--&gt;</code></li>
+                        <li>Low opacity image element with id <code>f00lish-stuff</code> (opacity: 0.01)</li>
+                        <li>Another image with id <code>secret-stuff</code> (opacity: 0.2)</li>
+                    </ul>
+                </div>
+
+                <p class="mb-3"><strong>Step 2: Check for Hidden Elements</strong></p>
+                <pre><code class="language-bash">grep -E "opacity|display.*none|visibility.*hidden" page.html</code></pre>
+                <p class="mb-3"><strong>Discovery:</strong> Multiple elements with very low opacity values designed to be nearly invisible.</p>
 
                 <h3 class="text-xl font-semibold mb-3 mt-6">Phase 2: JavaScript Analysis</h3>
-                <pre><code class="language-bash">grep -E "opacity|display.*none|visibility.*hidden" page.html</code></pre>
+                <p class="mb-3"><strong>Step 3: Download and Analyze JavaScript Files</strong></p>
+                <pre><code class="language-bash"># Find JavaScript bundles
+curl -s https://cannon-ball-three.vercel.app/ | grep -o '_next/static/chunks/[^"]*\.js' | head -5
+
+# Download main page JavaScript
+curl -s https://cannon-ball-three.vercel.app/_next/static/chunks/app/page-3e3e016d861d1eb2.js > page.js
+
+# Search for interesting strings
+strings page.js | grep -i "EOF\|flag\|secret"</code></pre>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                    <p class="font-semibold mb-2">Findings:</p>
+                    <ul class="list-disc list-inside text-sm space-y-1">
+                        <li>References to <code>/flag.zip</code></li>
+                        <li>References to <code>/target_hit.mp3</code></li>
+                        <li>References to <code>/secrets.txt</code></li>
+                    </ul>
+                </div>
 
                 <h3 class="text-xl font-semibold mb-3 mt-6">Phase 3: Hidden Resources Discovery</h3>
-                <p class="mb-3">Found base64-encoded data URIs and hidden image sources in the HTML. Extract these resources for analysis.</p>
+                <p class="mb-3"><strong>Step 4: Download Hidden Files</strong></p>
+                <pre><code class="language-bash"># Download the hidden resources
+curl -s https://cannon-ball-three.vercel.app/flag.zip > flag.zip
+curl -s https://cannon-ball-three.vercel.app/target_hit.mp3 > target_hit.mp3
+curl -s https://cannon-ball-three.vercel.app/secrets.txt > secrets.txt
 
-                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 4: Image Steganography</h3>
-                <p class="mb-3">After downloading hidden images, analyze them using steganography tools:</p>
-                <pre><code class="language-bash"># LSB steganography analysis
-zsteg hidden_image.png
+# Check file types
+file flag.zip target_hit.mp3 secrets.txt</code></pre>
 
-# Metadata analysis
-exiftool hidden_image.png
+                <p class="mb-3"><strong>Results:</strong> All three files contain base64-encoded data URIs!</p>
 
-# String extraction
-strings hidden_image.png | grep "EOF"</code></pre>
+                <p class="mb-3"><strong>Step 5: Decode Base64 Data</strong></p>
+                <pre><code class="language-bash"># Decode flag.zip content
+cat flag.zip | cut -d',' -f2 | base64 -d
+# Output: https://nothing-2-see-here.vercel.app/</code></pre>
 
-                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 5: Flag Extraction</h3>
-                <p class="mb-3">The flag was hidden using LSB (Least Significant Bit) steganography in one of the PNG images.</p>
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-4">
+                    <p class="font-semibold text-green-700">🎯 Discovery: A hidden secondary website!</p>
+                </div>
 
-                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
-                    <p class="font-semibold text-green-700"><strong>Flag:</strong> <code class="text-green-600">EOF{F0und_!t}</code></p>
+                <pre><code class="language-bash"># Decode secrets.txt to get image
+cat secrets.txt | cut -d',' -f2 | base64 -d > secrets.jpg
+file secrets.jpg
+# Output: JPEG image data
+
+# Decode target_hit.mp3 to get another image
+cat target_hit.mp3 | cut -d',' -f2 | base64 -d > target.png
+file target.png
+# Output: PNG image data</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 4: Secondary Site Investigation</h3>
+                <p class="mb-3"><strong>Step 6: Analyze the Hidden Site</strong></p>
+                <pre><code class="language-bash"># Fetch the hidden site
+curl -s https://nothing-2-see-here.vercel.app/ > page2.html
+
+# Check HTML comment
+grep -o '&lt;!--[^>]*--&gt;' page2.html
+# Output: &lt;!--c1SDEePUGiYnO0EAUsgjk--&gt;</code></pre>
+
+                <p class="mb-3"><strong>Step 7: Extract Secrets Image and OCR</strong></p>
+                <pre><code class="language-bash"># Run OCR on secrets.jpg
+tesseract secrets.jpg stdout</code></pre>
+
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4">
+                    <p class="font-semibold mb-2">OCR Output:</p>
+                    <pre class="text-sm mt-2">HAVE YOU LOOKED AT EVERYTHING CLOSELY?
+SORRY, THAT WAS A STRANGE THING TO ASK</pre>
+                    <p class="text-sm mt-2"><strong>Hint Interpretation:</strong> Need to examine all resources more carefully!</p>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 5: Image Steganography</h3>
+                <p class="mb-3"><strong>Step 8: Use Zsteg on PNG</strong></p>
+                <pre><code class="language-bash"># Install zsteg (if not installed)
+gem install zsteg
+
+# Run zsteg on the target.png
+zsteg target.png</code></pre>
+
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-4">
+                    <p class="font-semibold text-green-700 mb-2">🎉 SUCCESS! Flag found in LSB:</p>
+                    <pre class="text-sm mt-2">b1,r,lsb,xy         .. text: "EOF{F0und_!t}"
+b1,rgb,lsb,xy       .. text: "EOF{F0und_!t}EOF{F0und_!t}"
+b1,rgba,lsb,xy      .. text: "EOF{F0und_!t}EOF{F0und_!t}EOF{F0und_!t}EOF{F0und_!t}"</pre>
+                    <p class="text-sm mt-2">Flag found in the <strong>Least Significant Bit (LSB)</strong> of the PNG image!</p>
                 </div>
             </div>
 
             <div class="content-section">
                 <h2 class="text-2xl font-bold mb-4">Key Insights</h2>
                 
-                <h3 class="text-xl font-semibold mb-3">Multi-Stage Challenge</h3>
+                <h3 class="text-xl font-semibold mb-3">Challenge Design</h3>
+                <p class="mb-3">This challenge combined multiple techniques:</p>
                 <ol class="list-decimal list-inside space-y-2 mb-4">
-                    <li>Web reconnaissance and hidden resource discovery</li>
-                    <li>Base64-encoded data URIs analysis</li>
-                    <li>Multiple website layers with misdirection</li>
-                    <li>LSB steganography in PNG images</li>
-                    <li>Game interface as additional misdirection</li>
+                    <li><strong>Web Reconnaissance:</strong> Finding hidden resources through HTML/JS analysis</li>
+                    <li><strong>Base64 Encoding:</strong> Multiple layers of base64-encoded data URIs</li>
+                    <li><strong>Multi-Stage Puzzle:</strong> First site leads to second site</li>
+                    <li><strong>Visual Misdirection:</strong> Low opacity elements and misleading game interface</li>
+                    <li><strong>Steganography:</strong> Final flag hidden in image LSB data</li>
                 </ol>
 
-                <h3 class="text-xl font-semibold mb-3 mt-6">Tools Used</h3>
-                <ul class="list-disc list-inside space-y-2">
-                    <li><code>curl</code> - For fetching web pages</li>
-                    <li><code>zsteg</code> - For LSB steganography analysis</li>
-                    <li><code>tesseract</code> - For OCR if needed</li>
-                    <li><code>base64</code> - For decoding data URIs</li>
-                    <li><code>exiftool</code> - For metadata analysis</li>
-                    <li><strong>Browser DevTools</strong> - For inspecting hidden elements</li>
+                <h3 class="text-xl font-semibold mb-3 mt-6">The "Something Wrong"</h3>
+                <p class="mb-3">The challenge description said "something is wrong with this website":</p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li><strong>Hidden elements</strong> with very low opacity (0.01, 0.2)</li>
+                    <li><strong>Encoded resources</strong> disguised as different file types</li>
+                    <li><strong>Secondary site</strong> hidden in base64 data</li>
+                    <li><strong>Flag in steganography</strong> rather than in the game itself</li>
                 </ul>
 
-                <h3 class="text-xl font-semibold mb-3 mt-6">Key Techniques</h3>
+                <h3 class="text-xl font-semibold mb-3 mt-6">Why the Game Was a Decoy</h3>
+                <p class="mb-3">The website appeared to be a physics-based cannon game, but:</p>
                 <ul class="list-disc list-inside space-y-2">
-                    <li>Inspecting CSS for hidden elements (opacity, display, visibility)</li>
-                    <li>Analyzing base64-encoded images in data URIs</li>
-                    <li>Understanding LSB steganography in images</li>
-                    <li>Web scraping and automated analysis</li>
+                    <li>The actual challenge wasn't about solving the physics problem</li>
+                    <li>The game was designed to distract from the hidden resources</li>
+                    <li>The "Nice try man!" message when hitting the target was intentional misdirection</li>
                 </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Tools Used</h2>
+                
+                <h3 class="text-lg font-semibold mb-2">Web Analysis</h3>
+                <ul class="list-disc list-inside space-y-1 mb-4">
+                    <li><code>curl</code> - Download web resources</li>
+                    <li><code>grep</code> - Search for patterns</li>
+                    <li><code>strings</code> - Extract readable strings</li>
+                </ul>
+
+                <h3 class="text-lg font-semibold mb-2">Decoding</h3>
+                <ul class="list-disc list-inside space-y-1 mb-4">
+                    <li><code>base64</code> - Decode base64-encoded data</li>
+                    <li><code>cut</code> - Extract base64 from data URIs</li>
+                </ul>
+
+                <h3 class="text-lg font-semibold mb-2">Image Analysis</h3>
+                <ul class="list-disc list-inside space-y-1">
+                    <li><code>file</code> - Identify file types</li>
+                    <li><code>tesseract</code> - OCR for reading image text</li>
+                    <li><code>zsteg</code> - <strong>Critical:</strong> Extract LSB steganography from PNG</li>
+                    <li><code>exiftool</code> - EXIF metadata examination</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Complete Solution Summary</h2>
+                <pre><code class="language-bash"># 1. Download and analyze main page
+curl -s https://cannon-ball-three.vercel.app/ > page.html
+
+# 2. Extract hidden resources
+curl -s https://cannon-ball-three.vercel.app/flag.zip > flag.zip
+curl -s https://cannon-ball-three.vercel.app/target_hit.mp3 > target_hit.mp3
+curl -s https://cannon-ball-three.vercel.app/secrets.txt > secrets.txt
+
+# 3. Decode flag.zip to find hidden URL
+cat flag.zip | cut -d',' -f2 | base64 -d
+# Output: https://nothing-2-see-here.vercel.app/
+
+# 4. Decode target_hit.mp3 to get PNG image
+cat target_hit.mp3 | cut -d',' -f2 | base64 -d > target.png
+
+# 5. Run zsteg to extract flag from PNG
+zsteg target.png
+
+# Output: EOF{F0und_!t}</code></pre>
+
+                <p class="mt-4">This web challenge perfectly demonstrated the importance of thorough reconnaissance, not trusting the obvious interface, checking all resources including hidden ones, and using the right steganography tools. The flag <code class="text-green-600">EOF{F0und_!t}</code> celebrates the successful discovery after examining every element of both websites! 🎯</p>
             </div>
         </div>
     </div>
