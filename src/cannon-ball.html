@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cannon Ball - Instruo CTF 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        pre { background: #1e1e1e !important; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; }
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
+        pre code { background: transparent; padding: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        table th, table td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+        table th { background: #f9fafb; font-weight: 600; }
+    </style>
+</head>
+<body class="antialiased">
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">Instruo CTF</span>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                    </svg>
+                    <h1 class="text-4xl font-bold text-white">Cannon Ball</h1>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-cyan-500 text-white">Web</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-500 text-white">Steganography</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-500 text-white">Medium</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Challenge Information</h2>
+                <ul class="space-y-2">
+                    <li><strong>Challenge Name:</strong> Cannon Ball</li>
+                    <li><strong>Category:</strong> Web, Steganography</li>
+                    <li><strong>URL:</strong> <a href="https://cannon-ball-three.vercel.app/" class="text-blue-600 hover:underline" target="_blank">https://cannon-ball-three.vercel.app/</a></li>
+                    <li><strong>Description:</strong> "There is something wrong with this website, but I can't put a finger on it."</li>
+                    <li><strong>Flag:</strong> <code class="text-green-600">EOF{F0und_!t}</code></li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Solution Methodology</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-4">Phase 1: Initial Website Reconnaissance</h3>
+                <pre><code class="language-bash">curl -s https://cannon-ball-three.vercel.app/ > page.html
+cat page.html | grep -i "EOF\|flag\|hidden"</code></pre>
+
+                <p class="mb-3"><strong>Key Findings:</strong></p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>HTML comment: <code>&lt;!--RCnYi2VTt9yXtWnnmzOPL--&gt;</code></li>
+                    <li>Low opacity image element with id <code>f00lish-stuff</code> (opacity: 0.01)</li>
+                    <li>Another image with id <code>secret-stuff</code> (opacity: 0.2)</li>
+                    <li>Multiple elements with very low opacity values designed to be nearly invisible</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 2: JavaScript Analysis</h3>
+                <pre><code class="language-bash">grep -E "opacity|display.*none|visibility.*hidden" page.html</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 3: Hidden Resources Discovery</h3>
+                <p class="mb-3">Found base64-encoded data URIs and hidden image sources in the HTML. Extract these resources for analysis.</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 4: Image Steganography</h3>
+                <p class="mb-3">After downloading hidden images, analyze them using steganography tools:</p>
+                <pre><code class="language-bash"># LSB steganography analysis
+zsteg hidden_image.png
+
+# Metadata analysis
+exiftool hidden_image.png
+
+# String extraction
+strings hidden_image.png | grep "EOF"</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 5: Flag Extraction</h3>
+                <p class="mb-3">The flag was hidden using LSB (Least Significant Bit) steganography in one of the PNG images.</p>
+
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+                    <p class="font-semibold text-green-700"><strong>Flag:</strong> <code class="text-green-600">EOF{F0und_!t}</code></p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Key Insights</h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Multi-Stage Challenge</h3>
+                <ol class="list-decimal list-inside space-y-2 mb-4">
+                    <li>Web reconnaissance and hidden resource discovery</li>
+                    <li>Base64-encoded data URIs analysis</li>
+                    <li>Multiple website layers with misdirection</li>
+                    <li>LSB steganography in PNG images</li>
+                    <li>Game interface as additional misdirection</li>
+                </ol>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Tools Used</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><code>curl</code> - For fetching web pages</li>
+                    <li><code>zsteg</code> - For LSB steganography analysis</li>
+                    <li><code>tesseract</code> - For OCR if needed</li>
+                    <li><code>base64</code> - For decoding data URIs</li>
+                    <li><code>exiftool</code> - For metadata analysis</li>
+                    <li><strong>Browser DevTools</strong> - For inspecting hidden elements</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Key Techniques</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>Inspecting CSS for hidden elements (opacity, display, visibility)</li>
+                    <li>Analyzing base64-encoded images in data URIs</li>
+                    <li>Understanding LSB steganography in images</li>
+                    <li>Web scraping and automated analysis</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

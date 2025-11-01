@@ -148,7 +148,12 @@
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <h1 class="text-white text-2xl font-bold">🚩 Instruo CTF</h1>
+                        <h1 class="text-white text-2xl font-bold flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"></path>
+                            </svg>
+                            Instruo CTF
+                        </h1>
                     </div>
                 </div>
                 <div class="hidden md:block">
@@ -181,7 +186,10 @@
                         Explore Challenges →
                     </a>
                     <a href="https://github.com/gradientgeeks/instruo-ctf" target="_blank" class="glass-card px-8 py-4 rounded-xl text-white font-semibold text-lg hover:scale-105 transform transition">
-                        ⭐ Star on GitHub
+                        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                        </svg>
+                        Star on GitHub
                     </a>
                 </div>
             </div>
@@ -222,12 +230,14 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Challenge Card 1: Like Finding a Needle in the Hay Stack -->
-                <a href="absolutely-normal.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
+                <a href="src/absolutely-normal.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
                     <div class="flex items-start justify-between mb-4">
                         <div class="badge category-badge-steg rounded-full px-3 py-1 text-xs text-white font-semibold">
                             Steganography
                         </div>
-                        <span class="text-2xl">🔍</span>
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-2">Like Finding a Needle in the Hay Stack</h3>
                     <p class="text-white text-opacity-80 mb-4 text-sm">Multi-layered steganography with PNG, MP3 extraction, and Caesar cipher</p>
@@ -241,12 +251,15 @@
                 </a>
 
                 <!-- Challenge Card 2: Fooled -->
-                <a href="fooled.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
+                <a href="src/fooled.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
                     <div class="flex items-start justify-between mb-4">
                         <div class="badge category-badge-rev rounded-full px-3 py-1 text-xs text-white font-semibold">
                             Reverse Engineering
                         </div>
-                        <span class="text-2xl">🔧</span>
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-2">Fooled</h3>
                     <p class="text-white text-opacity-80 mb-4 text-sm">ELF binary analysis, custom encryption, and base64 decoding</p>
@@ -260,12 +273,14 @@
                 </a>
 
                 <!-- Challenge Card 3: Random Gibberish -->
-                <a href="random-gibberish.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
+                <a href="src/random-gibberish.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
                     <div class="flex items-start justify-between mb-4">
                         <div class="badge category-badge-misc rounded-full px-3 py-1 text-xs text-white font-semibold">
                             Misc
                         </div>
-                        <span class="text-2xl">🎭</span>
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+                        </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-2">Random Gibberish</h3>
                     <p class="text-white text-opacity-80 mb-4 text-sm">Esoteric NGFYU language, base64 URLs, and image steganography</p>
@@ -279,12 +294,14 @@
                 </a>
 
                 <!-- Challenge Card 4: Recursive Hell -->
-                <a href="recursive_hell.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
+                <a href="src/recursive_hell.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
                     <div class="flex items-start justify-between mb-4">
                         <div class="badge category-badge-steg rounded-full px-3 py-1 text-xs text-white font-semibold">
                             Steganography
                         </div>
-                        <span class="text-2xl">🔄</span>
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-2">Recursive Hell</h3>
                     <p class="text-white text-opacity-80 mb-4 text-sm">68 nested ZIPs and 48 base64 layers - 116 total iterations!</p>
@@ -298,12 +315,15 @@
                 </a>
 
                 <!-- Challenge Card 5: Amen -->
-                <a href="amen.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
+                <a href="src/amen.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
                     <div class="flex items-start justify-between mb-4">
                         <div class="badge category-badge-rev rounded-full px-3 py-1 text-xs text-white font-semibold">
                             Reverse Engineering
                         </div>
-                        <span class="text-2xl">⚙️</span>
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-2">Amen</h3>
                     <p class="text-white text-opacity-80 mb-4 text-sm">32-bit binary, PRNG-based encryption, and data array extraction</p>
@@ -317,12 +337,14 @@
                 </a>
 
                 <!-- Challenge Card 6: Cannon Ball -->
-                <a href="cannon-ball.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
+                <a href="src/cannon-ball.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
                     <div class="flex items-start justify-between mb-4">
                         <div class="badge category-badge-web rounded-full px-3 py-1 text-xs text-white font-semibold">
                             Web
                         </div>
-                        <span class="text-2xl">🌐</span>
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                        </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-2">Cannon Ball</h3>
                     <p class="text-white text-opacity-80 mb-4 text-sm">Web recon, hidden resources, base64 URIs, and LSB steganography</p>
@@ -346,27 +368,58 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                     <div class="badge rounded-xl p-4">
-                        <h3 class="text-lg font-semibold text-white mb-2">🔍 Steganography</h3>
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                            Steganography
+                        </h3>
                         <p class="text-sm text-white text-opacity-80">binwalk, exiftool, zsteg, steghide, strings</p>
                     </div>
                     <div class="badge rounded-xl p-4">
-                        <h3 class="text-lg font-semibold text-white mb-2">⚙️ Reverse Engineering</h3>
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            Reverse Engineering
+                        </h3>
                         <p class="text-sm text-white text-opacity-80">Ghidra, IDA Pro, GDB, objdump, radare2</p>
                     </div>
                     <div class="badge rounded-xl p-4">
-                        <h3 class="text-lg font-semibold text-white mb-2">🌐 Web Security</h3>
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                            </svg>
+                            Web Security
+                        </h3>
                         <p class="text-sm text-white text-opacity-80">curl, Burp Suite, wget, DevTools</p>
                     </div>
                     <div class="badge rounded-xl p-4">
-                        <h3 class="text-lg font-semibold text-white mb-2">🔐 Cryptography</h3>
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                            Cryptography
+                        </h3>
                         <p class="text-sm text-white text-opacity-80">CyberChef, hashcat, john, openssl</p>
                     </div>
                     <div class="badge rounded-xl p-4">
-                        <h3 class="text-lg font-semibold text-white mb-2">📝 Scripting</h3>
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                            Scripting
+                        </h3>
                         <p class="text-sm text-white text-opacity-80">Python, Bash, Ruby, Node.js</p>
                     </div>
                     <div class="badge rounded-xl p-4">
-                        <h3 class="text-lg font-semibold text-white mb-2">🔧 Utilities</h3>
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                            </svg>
+                            Utilities
+                        </h3>
                         <p class="text-sm text-white text-opacity-80">file, hexdump, xxd, dd, base64</p>
                     </div>
                 </div>
@@ -434,13 +487,7 @@
             observer.observe(card);
         });
 
-        // Update links to point to markdown files converted to HTML
-        // Note: GitHub Pages will need to convert .md to .html
-        document.querySelectorAll('a[href$=".html"]').forEach(link => {
-            const href = link.getAttribute('href');
-            // If GitHub Pages doesn't auto-convert, update these to .md
-            link.setAttribute('href', href.replace('.html', '.md'));
-        });
+
     </script>
 </body>
 </html>
