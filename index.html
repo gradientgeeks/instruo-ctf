@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instruo CTF Challenge 2025 - Writeups & Solutions</title>
+    <meta name="description" content="Comprehensive writeups and solutions for Instruo CTF 2025 challenges from IIEST. Learn steganography, reverse engineering, cryptography, and web security.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+        }
+        
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .category-badge-steg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .category-badge-rev {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .category-badge-web {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .category-badge-crypto {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        .category-badge-misc {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        .difficulty-easy {
+            color: #10b981;
+        }
+        
+        .difficulty-medium {
+            color: #f59e0b;
+        }
+        
+        .difficulty-hard {
+            color: #ef4444;
+        }
+        
+        .difficulty-expert {
+            color: #8b5cf6;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .7;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-white text-2xl font-bold">🚩 Instruo CTF</h1>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="nav-link text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#challenges" class="nav-link text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Challenges</a>
+                        <a href="#tools" class="nav-link text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Tools</a>
+                        <a href="https://github.com/gradientgeeks/instruo-ctf" target="_blank" class="nav-link text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass rounded-3xl p-12 text-center fade-in">
+                <div class="inline-block badge rounded-full px-4 py-2 mb-6">
+                    <span class="text-white text-sm font-semibold">IIEST • Instruo 2025</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6">
+                    CTF Challenge Writeups
+                </h1>
+                <p class="text-xl md:text-2xl text-white text-opacity-90 mb-8 max-w-3xl mx-auto">
+                    Comprehensive solutions and methodologies for steganography, reverse engineering, cryptography, and web security challenges
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#challenges" class="glass-card px-8 py-4 rounded-xl text-white font-semibold text-lg hover:scale-105 transform transition">
+                        Explore Challenges →
+                    </a>
+                    <a href="https://github.com/gradientgeeks/instruo-ctf" target="_blank" class="glass-card px-8 py-4 rounded-xl text-white font-semibold text-lg hover:scale-105 transform transition">
+                        ⭐ Star on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="pb-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="glass-card rounded-2xl p-6 text-center fade-in">
+                    <div class="text-4xl font-bold text-white mb-2">6</div>
+                    <div class="text-white text-opacity-80">Challenges Solved</div>
+                </div>
+                <div class="glass-card rounded-2xl p-6 text-center fade-in">
+                    <div class="text-4xl font-bold text-white mb-2">5</div>
+                    <div class="text-white text-opacity-80">Categories Covered</div>
+                </div>
+                <div class="glass-card rounded-2xl p-6 text-center fade-in">
+                    <div class="text-4xl font-bold text-white mb-2">15+</div>
+                    <div class="text-white text-opacity-80">Tools Used</div>
+                </div>
+                <div class="glass-card rounded-2xl p-6 text-center fade-in">
+                    <div class="text-4xl font-bold text-white mb-2">100%</div>
+                    <div class="text-white text-opacity-80">Educational Value</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section id="challenges" class="pb-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Challenge Writeups</h2>
+                <p class="text-xl text-white text-opacity-80">Click on any challenge to view the complete solution</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Challenge Card 1: Like Finding a Needle in the Hay Stack -->
+                <a href="absolutely-normal.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="badge category-badge-steg rounded-full px-3 py-1 text-xs text-white font-semibold">
+                            Steganography
+                        </div>
+                        <span class="text-2xl">🔍</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Like Finding a Needle in the Hay Stack</h3>
+                    <p class="text-white text-opacity-80 mb-4 text-sm">Multi-layered steganography with PNG, MP3 extraction, and Caesar cipher</p>
+                    <div class="flex items-center justify-between">
+                        <span class="badge rounded-lg px-3 py-1 text-xs text-white">500 pts</span>
+                        <span class="difficulty-hard font-semibold">Hard</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-white border-opacity-20">
+                        <code class="text-xs text-white text-opacity-70 break-all">EOF{b3war3_!t$_c0m!ng_f0r_u}</code>
+                    </div>
+                </a>
+
+                <!-- Challenge Card 2: Fooled -->
+                <a href="fooled.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="badge category-badge-rev rounded-full px-3 py-1 text-xs text-white font-semibold">
+                            Reverse Engineering
+                        </div>
+                        <span class="text-2xl">🔧</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Fooled</h3>
+                    <p class="text-white text-opacity-80 mb-4 text-sm">ELF binary analysis, custom encryption, and base64 decoding</p>
+                    <div class="flex items-center justify-between">
+                        <span class="badge rounded-lg px-3 py-1 text-xs text-white">600 pts</span>
+                        <span class="difficulty-hard font-semibold">Hard</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-white border-opacity-20">
+                        <code class="text-xs text-white text-opacity-70 break-all">EOF{not_a_foolish_person_ig}</code>
+                    </div>
+                </a>
+
+                <!-- Challenge Card 3: Random Gibberish -->
+                <a href="random-gibberish.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="badge category-badge-misc rounded-full px-3 py-1 text-xs text-white font-semibold">
+                            Misc
+                        </div>
+                        <span class="text-2xl">🎭</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Random Gibberish</h3>
+                    <p class="text-white text-opacity-80 mb-4 text-sm">Esoteric NGFYU language, base64 URLs, and image steganography</p>
+                    <div class="flex items-center justify-between">
+                        <span class="badge rounded-lg px-3 py-1 text-xs text-white">200 pts</span>
+                        <span class="difficulty-medium font-semibold">Medium</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-white border-opacity-20">
+                        <code class="text-xs text-white text-opacity-70">8 teams solved</code>
+                    </div>
+                </a>
+
+                <!-- Challenge Card 4: Recursive Hell -->
+                <a href="recursive_hell.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="badge category-badge-steg rounded-full px-3 py-1 text-xs text-white font-semibold">
+                            Steganography
+                        </div>
+                        <span class="text-2xl">🔄</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Recursive Hell</h3>
+                    <p class="text-white text-opacity-80 mb-4 text-sm">68 nested ZIPs and 48 base64 layers - 116 total iterations!</p>
+                    <div class="flex items-center justify-between">
+                        <span class="badge rounded-lg px-3 py-1 text-xs text-white">Expert</span>
+                        <span class="difficulty-expert font-semibold">Expert</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-white border-opacity-20">
+                        <code class="text-xs text-white text-opacity-70 break-all">EOF{its_a_damn_loop}</code>
+                    </div>
+                </a>
+
+                <!-- Challenge Card 5: Amen -->
+                <a href="amen.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="badge category-badge-rev rounded-full px-3 py-1 text-xs text-white font-semibold">
+                            Reverse Engineering
+                        </div>
+                        <span class="text-2xl">⚙️</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Amen</h3>
+                    <p class="text-white text-opacity-80 mb-4 text-sm">32-bit binary, PRNG-based encryption, and data array extraction</p>
+                    <div class="flex items-center justify-between">
+                        <span class="badge rounded-lg px-3 py-1 text-xs text-white">Medium</span>
+                        <span class="difficulty-medium font-semibold">Medium</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-white border-opacity-20">
+                        <code class="text-xs text-white text-opacity-70 break-all">EOF{wh3r3_ar3_my_po1n+5}</code>
+                    </div>
+                </a>
+
+                <!-- Challenge Card 6: Cannon Ball -->
+                <a href="cannon-ball.html" class="glass-card rounded-2xl p-6 hover:cursor-pointer fade-in">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="badge category-badge-web rounded-full px-3 py-1 text-xs text-white font-semibold">
+                            Web
+                        </div>
+                        <span class="text-2xl">🌐</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Cannon Ball</h3>
+                    <p class="text-white text-opacity-80 mb-4 text-sm">Web recon, hidden resources, base64 URIs, and LSB steganography</p>
+                    <div class="flex items-center justify-between">
+                        <span class="badge rounded-lg px-3 py-1 text-xs text-white">Medium</span>
+                        <span class="difficulty-medium font-semibold">Medium</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-white border-opacity-20">
+                        <code class="text-xs text-white text-opacity-70 break-all">EOF{F0und_!t}</code>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools" class="pb-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass-card rounded-3xl p-12">
+                <h2 class="text-4xl font-bold text-white mb-8 text-center">Essential CTF Tools</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="badge rounded-xl p-4">
+                        <h3 class="text-lg font-semibold text-white mb-2">🔍 Steganography</h3>
+                        <p class="text-sm text-white text-opacity-80">binwalk, exiftool, zsteg, steghide, strings</p>
+                    </div>
+                    <div class="badge rounded-xl p-4">
+                        <h3 class="text-lg font-semibold text-white mb-2">⚙️ Reverse Engineering</h3>
+                        <p class="text-sm text-white text-opacity-80">Ghidra, IDA Pro, GDB, objdump, radare2</p>
+                    </div>
+                    <div class="badge rounded-xl p-4">
+                        <h3 class="text-lg font-semibold text-white mb-2">🌐 Web Security</h3>
+                        <p class="text-sm text-white text-opacity-80">curl, Burp Suite, wget, DevTools</p>
+                    </div>
+                    <div class="badge rounded-xl p-4">
+                        <h3 class="text-lg font-semibold text-white mb-2">🔐 Cryptography</h3>
+                        <p class="text-sm text-white text-opacity-80">CyberChef, hashcat, john, openssl</p>
+                    </div>
+                    <div class="badge rounded-xl p-4">
+                        <h3 class="text-lg font-semibold text-white mb-2">📝 Scripting</h3>
+                        <p class="text-sm text-white text-opacity-80">Python, Bash, Ruby, Node.js</p>
+                    </div>
+                    <div class="badge rounded-xl p-4">
+                        <h3 class="text-lg font-semibold text-white mb-2">🔧 Utilities</h3>
+                        <p class="text-sm text-white text-opacity-80">file, hexdump, xxd, dd, base64</p>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <a href="https://github.com/gradientgeeks/instruo-ctf#-tools--prerequisites" target="_blank" class="inline-block badge rounded-xl px-6 py-3 text-white font-semibold hover:scale-105 transform transition">
+                        View Complete Tool List →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass rounded-2xl p-8 text-center">
+                <p class="text-white text-opacity-80 mb-4">
+                    <strong>Instruo CTF 2025</strong> • Organized by IIEST (Indian Institute of Engineering Science and Technology)
+                </p>
+                <p class="text-white text-opacity-60 text-sm mb-4">
+                    Repository maintained by Gradient Geeks • For educational purposes only
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="https://github.com/gradientgeeks/instruo-ctf" target="_blank" class="text-white hover:text-gray-200 transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.glass-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Update links to point to markdown files converted to HTML
+        // Note: GitHub Pages will need to convert .md to .html
+        document.querySelectorAll('a[href$=".html"]').forEach(link => {
+            const href = link.getAttribute('href');
+            // If GitHub Pages doesn't auto-convert, update these to .md
+            link.setAttribute('href', href.replace('.html', '.md'));
+        });
+    </script>
+</body>
+</html>
