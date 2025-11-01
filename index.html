@@ -7,23 +7,15 @@
     <meta name="description" content="Comprehensive writeups and solutions for Instruo CTF 2025 challenges from IIEST. Learn steganography, reverse engineering, cryptography, and web security.">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
         
         * {
-            font-family: 'Inter', sans-serif;
+            font-family: 'IBM Plex Mono', monospace;
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
-        }
-        
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
         
         .glass {
@@ -31,7 +23,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
         
         .glass-card {
@@ -39,14 +31,14 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
         }
         
         .glass-card:hover {
             transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
         }
         
         .badge {
@@ -77,23 +69,23 @@
         }
         
         .category-badge-steg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
         }
         
         .category-badge-rev {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #5a67d8 0%, #434190 100%);
         }
         
         .category-badge-web {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #2c5282 0%, #2a4365 100%);
         }
         
         .category-badge-crypto {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            background: linear-gradient(135deg, #276749 0%, #22543d 100%);
         }
         
         .category-badge-misc {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            background: linear-gradient(135deg, #975a16 0%, #744210 100%);
         }
         
         .difficulty-easy {
@@ -283,13 +275,13 @@
                         </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-2">Random Gibberish</h3>
-                    <p class="text-white text-opacity-80 mb-4 text-sm">Esoteric NGFYU language, base64 URLs, and image steganography</p>
+                    <p class="text-white text-opacity-80 mb-4 text-sm">Esoteric NGFYU language, base64 URLs, and brightness/contrast steganography</p>
                     <div class="flex items-center justify-between">
                         <span class="badge rounded-lg px-3 py-1 text-xs text-white">200 pts</span>
                         <span class="difficulty-medium font-semibold">Medium</span>
                     </div>
                     <div class="mt-4 pt-4 border-t border-white border-opacity-20">
-                        <code class="text-xs text-white text-opacity-70">8 teams solved</code>
+                        <code class="text-xs text-white text-opacity-70 break-all">EOF{@stley}</code>
                     </div>
                 </a>
 

@@ -8,24 +8,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        * { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'IBM Plex Mono', monospace; }
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
-        }
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
         .glass {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
         .content-section {
             background: rgba(255, 255, 255, 0.95);
@@ -65,9 +58,9 @@
                     <h1 class="text-4xl font-bold text-white">Random Gibberish</h1>
                 </div>
                 <div class="flex flex-wrap gap-3">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-pink-500 to-yellow-500 text-white">Misc</span>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-500 text-white">200 pts</span>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-500 text-white">Medium</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-amber-700 to-orange-700 text-white">Misc</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-600 text-white">200 pts</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-600 text-white">Medium</span>
                 </div>
             </div>
 
@@ -83,7 +76,7 @@
                     <li><strong>Category:</strong> Misc, Crypto, Steganography</li>
                     <li><strong>Points:</strong> 200</li>
                     <li><strong>Teams Solved:</strong> 8</li>
-                    <li><strong>Flag Format:</strong> EOF{}</li>
+                    <li><strong>Flag:</strong> <code class="text-green-600">EOF{@stley}</code></li>
                 </ul>
                 
                 <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-4">
@@ -134,7 +127,31 @@ curl -L "https://drive.google.com/uc?export=download&id=${FILE_ID}" -o flag.png
 file flag.png
 # Output: PNG image (82K)</code></pre>
 
-                <p class="mb-3"><strong>Flag Extraction:</strong> The flag.png image contains the flag either visibly or hidden using steganography tools like <code>zsteg</code>.</p>
+                <h3 class="text-xl font-semibold mb-3 mt-6">Step 6: Image Manipulation - Brightness & Contrast Adjustment</h3>
+                <p class="mb-3"><strong>The Key Discovery:</strong> The flag is hidden in the image but not visible with normal settings. You need to adjust brightness and contrast to reveal it!</p>
+                
+                <p class="mb-3"><strong>Method 1: Using GIMP or Photoshop</strong></p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>Open flag.png in GIMP or Photoshop</li>
+                    <li>Navigate to: Colors → Brightness-Contrast (GIMP) or Image → Adjustments → Brightness/Contrast (Photoshop)</li>
+                    <li>Increase brightness and contrast to maximum or adjust until text becomes visible</li>
+                    <li>The flag <code>EOF{@stley}</code> becomes visible!</li>
+                </ul>
+
+                <p class="mb-3"><strong>Method 2: Using ImageMagick (CLI)</strong></p>
+                <pre><code class="language-bash"># Adjust brightness and contrast
+convert flag.png -brightness-contrast 50x50 flag_adjusted.png
+
+# Or use auto-level for automatic adjustment
+convert flag.png -auto-level flag_adjusted.png
+
+# View the adjusted image
+open flag_adjusted.png</code></pre>
+
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+                    <p class="font-semibold text-green-700"><strong>Flag Revealed:</strong> <code class="text-green-600 text-lg">EOF{@stley}</code></p>
+                    <p class="text-sm mt-2 text-gray-700"><strong>Reference:</strong> "@tsley" refers to Rick Astley (the NGFYU rickroll theme!)</p>
+                </div>
             </div>
 
             <div class="content-section">
@@ -158,24 +175,45 @@ file flag.png
                 <h3 class="text-xl font-semibold mb-3 mt-6">Multi-Stage Challenge</h3>
                 <ol class="list-decimal list-inside space-y-2">
                     <li>Recognize it's an esoteric language (not steganography initially)</li>
-                    <li>Find the hidden interpreter URL</li>
-                    <li>Find the hidden Google Drive link</li>
-                    <li>Download the flag image</li>
-                    <li>Extract the flag from the image</li>
+                    <li>Find the hidden interpreter URL (base64 on line 509)</li>
+                    <li>Find the hidden Google Drive link (base64 on line 1751)</li>
+                    <li>Download the flag image from Google Drive</li>
+                    <li><strong>Adjust brightness/contrast</strong> to reveal the hidden flag</li>
+                    <li>Extract the flag: <code>EOF{@stley}</code></li>
                 </ol>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-6">Why Brightness/Contrast Was Key</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>The flag was written in very light/low-contrast text on the image</li>
+                    <li>Nearly invisible to the naked eye without adjustment</li>
+                    <li>Common steganography technique: hiding in plain sight with low visibility</li>
+                    <li>Could also be revealed by inverting colors or adjusting levels</li>
+                </ul>
             </div>
 
-            <div class="content-section bg-gradient-to-r from-purple-50 to-pink-50">
+            <div class="content-section bg-gradient-to-r from-gray-50 to-blue-50">
                 <h2 class="text-2xl font-bold mb-4">Summary</h2>
                 <p class="mb-3">This challenge cleverly combined:</p>
-                <ul class="list-disc list-inside space-y-2">
-                    <li>Custom esoteric programming language (NGFYU)</li>
-                    <li>Base64 encoding</li>
-                    <li>Rick Astley meme/rickroll as misdirection</li>
-                    <li>Multi-stage puzzle solving</li>
-                    <li>Steganography for final flag extraction</li>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>Custom esoteric programming language (NGFYU - Never Gonna F*** You Up)</li>
+                    <li>Base64 encoding for hidden URLs (lines 509 and 1751)</li>
+                    <li>Rick Astley meme/rickroll as thematic misdirection</li>
+                    <li>Multi-stage puzzle solving (5+ stages)</li>
+                    <li><strong>Image steganography via brightness/contrast manipulation</strong></li>
                 </ul>
-                <p class="mt-4"><strong>Flag Format:</strong> <code>EOF{...}</code></p>
+                
+                <div class="bg-white rounded-lg p-4 mt-4 border-2 border-green-500">
+                    <p class="text-lg mb-2"><strong>Final Flag:</strong></p>
+                    <p class="text-2xl font-bold text-green-600 mb-2"><code>EOF{@stley}</code></p>
+                    <p class="text-sm text-gray-600 italic">A tribute to Rick Astley - never gonna give you up! 🎵</p>
+                </div>
+
+                <h3 class="text-lg font-semibold mt-6 mb-2">Tools Required:</h3>
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                    <li><code>base64</code> - Decoding hidden URLs</li>
+                    <li><code>curl</code> / <code>wget</code> - Downloading the flag image</li>
+                    <li><strong>GIMP / Photoshop / ImageMagick</strong> - Brightness/contrast adjustment</li>
+                </ul>
             </div>
         </div>
     </div>
