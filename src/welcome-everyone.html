@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Everyone - Instruo CTF 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'IBM Plex Mono', monospace; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        pre { background: #1e1e1e !important; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; }
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
+        pre code { background: transparent; padding: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        table th, table td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+        table th { background: #f9fafb; font-weight: 600; }
+    </style>
+</head>
+<body class="antialiased">
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">Instruo CTF</span>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                    </svg>
+                    <h1 class="text-4xl font-bold text-white">Welcome Everyone</h1>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-800 text-white">Web</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-700 text-white">150 pts</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-600 text-white">Easy</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Challenge Information</h2>
+                <ul class="space-y-2">
+                    <li><strong>Challenge Name:</strong> Welcome Everyone (Challenge 1)</li>
+                    <li><strong>Category:</strong> Web</li>
+                    <li><strong>Target:</strong> https://instruo.tech/</li>
+                    <li><strong>Flag:</strong> <code class="text-green-600">EOF{f0und_m3_f!nally}</code></li>
+                    <li><strong>Difficulty:</strong> Beginner (Web Reconnaissance)</li>
+                </ul>
+
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-4">
+                    <p class="font-semibold mb-2">Challenge Description:</p>
+                    <p class="text-sm">Solve your first challenge.</p>
+                    <p class="text-sm mt-2">The INSTRUO 14 Website Team have spent a lot of time perfecting the website. Check it out!</p>
+                    <p class="text-sm mt-2">And never forget the name of this CTF, it will serve as a reminder for the rest of your journey, that <strong>everyone is a fool</strong>.</p>
+                    <p class="text-sm mt-2"><strong>Note:</strong> Flags, unless specified otherwise, will be of the format EOF{text}, text might include numbers and symbols as well.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Solution Methodology</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-4">Phase 1: Initial Website Inspection</h3>
+                <pre><code class="language-bash">curl -s https://instruo.tech/ | head -100</code></pre>
+                <p class="mb-3"><strong>Observation:</strong></p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>Website returns HTML with minimal content</li>
+                    <li>Appears to be a single-page application (SPA)</li>
+                    <li>No obvious flags in initial HTML response</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 2: Check robots.txt</h3>
+                <pre><code class="language-bash">curl -s https://instruo.tech/robots.txt</code></pre>
+                <p class="mb-3"><strong>Result:</strong> No robots.txt file found (404 response)</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 3: Search HTML for Flag Patterns</h3>
+                <pre><code class="language-bash">curl -s https://instruo.tech/ | grep -i "eof\|flag\|fool" -A 2 -B 2</code></pre>
+                <p class="mb-3"><strong>Result:</strong> No direct flag patterns found in HTML source</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 4: React SPA Investigation</h3>
+                <pre><code class="language-bash">curl -s https://instruo.tech/ > page.html
+cat page.html</code></pre>
+                <p class="mb-3"><strong>Key Findings:</strong></p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>React application detected (React root element present)</li>
+                    <li>JavaScript bundle: <code>/assets/index-ZgcoQM9t.js</code></li>
+                    <li>CSS bundle: <code>/assets/index-DUKRed5p.css</code></li>
+                    <li>No flag in static HTML - must be in dynamically loaded assets</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 5: JavaScript Bundle Analysis</h3>
+                <p class="mb-3">Based on the challenge hint about "EOFool" (Everyone's a Fool), the events page was checked:</p>
+                <pre><code class="language-bash">curl -s https://instruo.tech/events | tee events.html | head -200</code></pre>
+                <p class="mb-3"><strong>Observation:</strong> Same HTML returned - typical SPA behavior</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 6: Search JavaScript Bundle</h3>
+                <pre><code class="language-bash">curl -s https://instruo.tech/assets/index-ZgcoQM9t.js > main.js
+grep -i "fool" main.js | head -10</code></pre>
+                <p class="mb-3"><strong>Key Finding:</strong> The word "fool" appears in the context of "eofool" event</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 7: Extract Flag Pattern</h3>
+                <pre><code class="language-bash">grep -E 'f0und_m3_f.*nally' main.js</code></pre>
+                <p class="mb-3">After examining the context, the complete flag was identified in the "eofool" event section.</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 8: Flag Location Analysis</h3>
+                <p class="mb-3">Examining the minified JavaScript revealed:</p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>Flag is rendered in a hidden <code>&lt;span&gt;</code> element</li>
+                    <li>CSS properties: <code>fontSize: "0.1rem"</code> and <code>color: "transparent"</code></li>
+                    <li>Makes the flag invisible to normal website visitors</li>
+                    <li>Only visible through source code inspection or developer tools</li>
+                </ul>
+
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+                    <p class="font-semibold text-green-700">✅ SUCCESS! Flag: <code class="text-green-600">EOF{f0und_m3_f!nally}</code></p>
+                    <p class="text-sm mt-2">The flag was hidden in a React component for the EOFool event page with CSS transparency!</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Key Insights</h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Why This Challenge is the First</h3>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li><strong>Web fundamentals</strong> - Tests basic web reconnaissance skills</li>
+                    <li><strong>Source code inspection</strong> - Core CTF skill</li>
+                    <li><strong>Client-side analysis</strong> - Understanding modern web apps</li>
+                    <li><strong>Pattern recognition</strong> - Using hints from challenge description</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Challenge Design Elements</h3>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li><strong>"Everyone is a fool" hint</strong> - Directly points to "EOFool" event</li>
+                    <li><strong>Flag format instruction</strong> - Teaches <code>EOF{text}</code> pattern</li>
+                    <li><strong>Modern web tech</strong> - Introduces React/SPA challenges</li>
+                    <li><strong>Stealth hiding</strong> - CSS transparency technique</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Tools Used</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><code>curl</code> - HTTP client for downloading web resources</li>
+                    <li><code>grep</code> - Pattern matching and flag search</li>
+                    <li><strong>Browser DevTools</strong> - Alternative for inspection</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Alternative Solution Methods</h3>
+                <p class="mb-3"><strong>Method 1: Browser Developer Tools</strong></p>
+                <ol class="list-decimal list-inside space-y-2 mb-4">
+                    <li>Open https://instruo.tech/ in browser</li>
+                    <li>Open Developer Tools (F12)</li>
+                    <li>Navigate to Events page</li>
+                    <li>Search page source (Ctrl+F) for "EOF{"</li>
+                    <li>Find hidden span element with flag</li>
+                </ol>
+
+                <p class="mb-3"><strong>Method 2: Network Tab Analysis</strong></p>
+                <ol class="list-decimal list-inside space-y-2">
+                    <li>Open Network tab in DevTools</li>
+                    <li>Load the website</li>
+                    <li>Inspect JavaScript bundle response</li>
+                    <li>Search response for flag</li>
+                </ol>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Complete Command Sequence</h2>
+                <pre><code class="language-bash"># 1. Initial reconnaissance
+curl -s https://instruo.tech/ | head -100
+
+# 2. Check for robots.txt
+curl -s https://instruo.tech/robots.txt
+
+# 3. Download full HTML
+curl -s https://instruo.tech/ > page.html
+
+# 4. Search HTML for flag patterns
+grep -i "eof\|flag\|fool" page.html
+
+# 5. Check events page (based on CTF name hint)
+curl -s https://instruo.tech/events > events.html
+
+# 6. Download JavaScript bundle
+curl -s https://instruo.tech/assets/index-ZgcoQM9t.js > main.js
+
+# 7. Search for "fool" keyword
+grep -i "fool" main.js
+
+# 8. Search for flag pattern
+grep -E 'f0und_m3_f.*nally' main.js
+
+# 9. Extract and verify flag
+echo "EOF{f0und_m3_f!nally}"</code></pre>
+            </div>
+
+            <div class="content-section bg-gradient-to-r from-green-50 to-blue-50">
+                <h2 class="text-2xl font-bold mb-4">Summary</h2>
+                <p class="mb-3"><strong>Welcome Everyone</strong> is an excellent introductory web challenge that teaches fundamental CTF skills:</p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>Reading challenge descriptions carefully for hints</li>
+                    <li>Basic web reconnaissance techniques</li>
+                    <li>Understanding modern web application architecture</li>
+                    <li>Client-side source code analysis</li>
+                    <li>Using command-line tools for web investigation</li>
+                </ul>
+                <p class="mt-4">The flag <code class="text-green-600">EOF{f0und_m3_f!nally}</code> celebrates the solver's first success, encouraging them with the message "finally found me!" The clever CSS hiding technique (transparent color + tiny font size) introduces the concept that data can be present but invisible, a recurring theme in CTF challenges.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
+

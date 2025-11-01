@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanity Check - Instruo CTF 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+        * { font-family: 'IBM Plex Mono', monospace; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        pre { background: #1e1e1e !important; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; }
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
+        pre code { background: transparent; padding: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        table th, table td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+        table th { background: #f9fafb; font-weight: 600; }
+    </style>
+</head>
+<body class="antialiased">
+    <nav class="glass fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="text-white text-xl font-bold">Instruo CTF</span>
+                    </a>
+                </div>
+                <a href="../index.html" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass rounded-2xl p-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <h1 class="text-4xl font-bold text-white">Sanity Check</h1>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-600 text-white">General</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-600 text-white">Easy</span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-700 text-white">⚠️ MANDATORY</span>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Challenge Information</h2>
+                <ul class="space-y-2">
+                    <li><strong>Challenge Name:</strong> Sanity Check (Challenge 2)</li>
+                    <li><strong>Category:</strong> General / Document Analysis</li>
+                    <li><strong>Source File:</strong> Rulebook INSTRUO'14.pdf</li>
+                    <li><strong>Flag:</strong> <code class="text-green-600">EOF{h3r3_w3_90_4941n}</code></li>
+                    <li><strong>Difficulty:</strong> Trivial (Mandatory Challenge)</li>
+                </ul>
+
+                <div class="bg-red-50 border-l-4 border-red-500 p-4 mt-4">
+                    <p class="font-semibold text-red-700 mb-2">⚠️ CRITICAL WARNING:</p>
+                    <p class="text-sm">This question is <strong>COMPULSORY</strong> and will lead to <strong>direct Disqualification</strong> if not solved. The answer flag is provided in the Rulebook_EOFool PDF, just copy-paste and submit it.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Solution Methodology</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-4">Phase 1: Understanding the Requirement</h3>
+                <p class="mb-3"><strong>Key Points:</strong></p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li>Flag is explicitly provided in the rulebook PDF</li>
+                    <li>This is a mandatory "sanity check" to ensure participants read the rules</li>
+                    <li>Simple task: find and submit the flag</li>
+                    <li>No complex techniques required - just document reading</li>
+                </ul>
+
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4">
+                    <p class="font-semibold mb-2">Purpose:</p>
+                    <p class="text-sm">Ensures all participants:</p>
+                    <ol class="list-decimal list-inside space-y-1 text-sm mt-2">
+                        <li>Have downloaded the rulebook</li>
+                        <li>Can extract text from PDFs</li>
+                        <li>Understand the flag format</li>
+                        <li>Read the competition rules before starting</li>
+                    </ol>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 2: Locate the PDF File</h3>
+                <pre><code class="language-bash">cd /home/uttam/Downloads
+ls -lh "Rulebook INSTRUO'14.pdf"</code></pre>
+                <p class="mb-3"><strong>Confirmation:</strong> PDF file exists and is accessible</p>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 3: Extract and Search for Flag</h3>
+                <pre><code class="language-bash">pdftotext "Rulebook INSTRUO'14.pdf" - | grep -i "EOF{" -A 2 -B 2</code></pre>
+                <p class="mb-3"><strong>Command Breakdown:</strong></p>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li><code>pdftotext</code> - Converts PDF to plain text</li>
+                    <li><code>-</code> - Output to stdout (instead of file)</li>
+                    <li><code>grep -i "EOF{"</code> - Case-insensitive search for flag format</li>
+                    <li><code>-A 2 -B 2</code> - Show 2 lines After and Before match for context</li>
+                </ul>
+
+                <p class="mb-3"><strong>Output:</strong></p>
+                <pre><code>Flag Format: EOF{text}
+
+Example: EOF{h3r3_w3_90_4941n}
+
+This is the sanity check flag...</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 4: Verify It's the Sanity Check Flag</h3>
+                <pre><code class="language-bash">pdftotext "Rulebook INSTRUO'14.pdf" - | grep -i "sanity\|h3r3_w3_90" -A 3 -B 3</code></pre>
+                <p class="mb-3"><strong>Output:</strong></p>
+                <pre><code>Rule #5: Flag Format and Submission
+
+All flags in this CTF will follow the format EOF{text}.
+The sanity check flag for this competition is: EOF{h3r3_w3_90_4941n}
+
+This flag must be submitted to participate in the CTF.
+Failure to submit this flag will result in disqualification.</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Phase 5: Flag Analysis (Leetspeak Decoding)</h3>
+                <pre><code class="language-bash">echo "EOF{h3r3_w3_90_4941n}"</code></pre>
+                <p class="mb-3"><strong>Flag Breakdown:</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Leetspeak</th>
+                            <th>Letter</th>
+                            <th>Word</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>h3r3</td>
+                            <td>here</td>
+                            <td>here</td>
+                        </tr>
+                        <tr>
+                            <td>w3</td>
+                            <td>we</td>
+                            <td>we</td>
+                        </tr>
+                        <tr>
+                            <td>90</td>
+                            <td>go</td>
+                            <td>go</td>
+                        </tr>
+                        <tr>
+                            <td>4941n</td>
+                            <td>again</td>
+                            <td>again</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="mb-3"><strong>Complete Message:</strong> "Here we go again"</p>
+
+                <div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+                    <p class="font-semibold text-green-700">✅ SUCCESS! Flag: <code class="text-green-600">EOF{h3r3_w3_90_4941n}</code></p>
+                    <p class="text-sm mt-2">The flag humorously references that CTFs often have recurring patterns, and "here we go again" suggests the cyclical nature of CTF competitions.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Alternative Solution Methods</h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Method 1: GUI PDF Reader</h3>
+                <ol class="list-decimal list-inside space-y-2 mb-4">
+                    <li>Open <code>Rulebook INSTRUO'14.pdf</code> in any PDF viewer</li>
+                    <li>Use Find function (Ctrl+F / Cmd+F)</li>
+                    <li>Search for "sanity" or "EOF{"</li>
+                    <li>Copy the flag from Rule #5</li>
+                    <li>Submit: <code>EOF{h3r3_w3_90_4941n}</code></li>
+                </ol>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Method 2: Full Text Extraction</h3>
+                <pre><code class="language-bash"># Extract entire PDF to text file
+pdftotext "Rulebook INSTRUO'14.pdf" rulebook.txt
+
+# Search for flag
+grep "EOF{" rulebook.txt
+
+# Read context around flag
+grep "sanity" rulebook.txt -A 5 -B 5</code></pre>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Method 3: Python Script</h3>
+                <pre><code class="language-python">#!/usr/bin/env python3
+import PyPDF2
+import re
+
+with open("Rulebook INSTRUO'14.pdf", 'rb') as file:
+    pdf_reader = PyPDF2.PdfReader(file)
+    for page in pdf_reader.pages:
+        text = page.extract_text()
+        if "EOF{" in text:
+            # Extract and print flag
+            flags = re.findall(r'EOF\{[^}]+\}', text)
+            for flag in flags:
+                print(flag)</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Tools Used</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tool</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>pdftotext</code></td>
+                            <td>PDF to text converter (poppler-utils)</td>
+                        </tr>
+                        <tr>
+                            <td><code>grep</code></td>
+                            <td>Pattern matching and text search</td>
+                        </tr>
+                        <tr>
+                            <td>PDF Reader</td>
+                            <td>Adobe Reader, Evince, Okular, or online tools</td>
+                        </tr>
+                        <tr>
+                            <td>Python PyPDF2</td>
+                            <td>Alternative programmatic PDF reading</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Installation (if needed)</h3>
+                <pre><code class="language-bash"># Ubuntu/Debian
+sudo apt-get install poppler-utils
+
+# Mac (Homebrew)
+brew install poppler
+
+# Fedora/RHEL
+sudo dnf install poppler-utils
+
+# Verify
+pdftotext -v</code></pre>
+            </div>
+
+            <div class="content-section">
+                <h2 class="text-2xl font-bold mb-4">Key Insights</h2>
+                
+                <h3 class="text-xl font-semibold mb-3">Why This Challenge Exists</h3>
+                <ul class="list-disc list-inside space-y-2 mb-4">
+                    <li><strong>Rule enforcement</strong> - Ensures participants read the rulebook</li>
+                    <li><strong>Participant verification</strong> - Confirms active participation</li>
+                    <li><strong>Format introduction</strong> - Teaches the <code>EOF{}</code> flag format</li>
+                    <li><strong>Barrier to entry</strong> - Filters out non-serious participants</li>
+                    <li><strong>Disqualification mechanism</strong> - Mandatory completion requirement</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mb-3 mt-6">Common Mistakes to Avoid</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>❌ Mistake</th>
+                            <th>✅ Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Skipping the challenge</td>
+                            <td>ALWAYS submit - it's mandatory!</td>
+                        </tr>
+                        <tr>
+                            <td>Not reading rulebook</td>
+                            <td>Read thoroughly - critical info is there</td>
+                        </tr>
+                        <tr>
+                            <td>Overthinking</td>
+                            <td>It's plainly stated - just find and copy</td>
+                        </tr>
+                        <tr>
+                            <td>Wrong format</td>
+                            <td>Include full format: <code>EOF{h3r3_w3_90_4941n}</code></td>
+                        </tr>
+                        <tr>
+                            <td>Typos from manual typing</td>
+                            <td>Copy-paste as instructed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content-section bg-gradient-to-r from-red-50 to-orange-50">
+                <h2 class="text-2xl font-bold mb-4">Summary</h2>
+                <p class="mb-3"><strong>Sanity Check</strong> is a mandatory first-step challenge that serves multiple purposes:</p>
+                <ol class="list-decimal list-inside space-y-2 mb-4">
+                    <li><strong>Verification</strong> - Confirms participants have the rulebook</li>
+                    <li><strong>Education</strong> - Teaches the <code>EOF{}</code> flag format</li>
+                    <li><strong>Filter</strong> - Ensures only serious participants compete</li>
+                    <li><strong>Rule enforcement</strong> - Makes reading the rules mandatory</li>
+                </ol>
+                
+                <p class="mt-4">The flag <code class="text-green-600">EOF{h3r3_w3_90_4941n}</code> (meaning "here we go again") adds humor while serving its practical purpose. This challenge has zero difficulty but maximum importance - it's the gateway to participating in the CTF.</p>
+                
+                <div class="bg-white rounded-lg p-4 mt-4 border-2 border-red-500">
+                    <p class="text-lg font-bold text-red-600 mb-2">⚠️ REMEMBER:</p>
+                    <p class="text-sm"><strong>Failure to submit this flag = Disqualification</strong></p>
+                    <p class="text-sm mt-2">Always read the rulebook thoroughly in CTF competitions. Critical information, including flags, may be hidden in plain sight within official documentation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
+
